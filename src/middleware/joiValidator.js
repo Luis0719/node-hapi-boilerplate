@@ -1,4 +1,4 @@
-const { BadRequest } = require('../helpers/httpErrors');
+const { BadRequest } = require('common').httpErrors;
 
 module.exports = async (request, h, err) => {
   const validationError = err.details[0];

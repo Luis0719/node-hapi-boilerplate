@@ -1,4 +1,4 @@
-const { httpErrors, bcrypt } = require('../../../helpers');
+const { httpErrors, bcrypt } = require('common');
 const { Unauthorized } = httpErrors;
 
 module.exports = async (request, { getUser }) => {

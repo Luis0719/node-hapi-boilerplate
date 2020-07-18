@@ -1,4 +1,4 @@
-const { apiService } = require('../../../config');
+const { apiService } = require('config');
 
 module.exports = {
   accessTokenName: apiService.accessTokenName,

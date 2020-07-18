@@ -1,5 +1,5 @@
-const { jwt } = require("../../../config");
-const { httpErrors } = require('../../helpers');
+const { jwt } = require("config");
+const { httpErrors } = require('common');
 const { getUserById } = require('../../services/auth/methods');
 
 const { Unauthorized } = httpErrors;

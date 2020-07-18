@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const userMethods = require('../users/methods');
 const methods = require('./methods');
 
 const {
@@ -10,7 +11,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/auth/login',
-    handler: request => login(request, methods),
+    handler: request => login(request, userMethods),
     config: {
       tags: ['api', 'auth'],
       description: 'Authenticate user and return JWT',

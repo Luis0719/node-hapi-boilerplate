@@ -20,8 +20,10 @@
   "author": "Asquell",
   "license": "ISC",
   "homepage": "https://bitbucket.org/luis0719/fox-adminjs#readme",
-  "foxAdminDependencies": {
-    "foxAdminDb": "./src/database"
+  "customDependencies": {
+    "config": "./config",
+    "foxAdminDb": "./src/database",
+    "common": "./src/common"
   },
   "dependencies": {
     "@hapi/basic": "^6.0.0",

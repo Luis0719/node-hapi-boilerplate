@@ -7,7 +7,7 @@ const serviceID = {
 
 require('dotenv').config()
 const { joiValidator } = require('./middleware');
-const { server: config, cors} = require('../config');
+const { server: config, cors} = require('config');
 config.routes = {
     cors,
     validate: {

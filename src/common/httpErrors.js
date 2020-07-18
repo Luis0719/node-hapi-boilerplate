@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { server } = require('../../config');
+const { server } = require('config');
 
 const { flip, concat, replace, compose, prop } = require('ramda');
 
