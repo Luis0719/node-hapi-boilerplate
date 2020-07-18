@@ -1,0 +1,52 @@
+{
+  "name": "fox-adminjs",
+  "version": "1.0.0",
+  "description": "Fox admin with nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
+    "start": "yarn preinstall && node src/app.js",
+    "watch": "yarn preinstall && nodemon src/app.js",
+    "test": "",
+    "migrate": "npx sequelize-cli db:migrate",
+    "unmigrate": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
+    "unseed": "npx sequelize-cli db:seed:undo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://luis0719@bitbucket.org/luis0719/fox-adminjs.git"
+  },
+  "author": "Asquell",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/luis0719/fox-adminjs#readme",
+  "foxAdminDependencies": {
+    "foxAdminDb": "./src/database"
+  },
+  "dependencies": {
+    "@hapi/basic": "^6.0.0",
+    "@hapi/boom": "^9.1.0",
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/inert": "^6.0.1",
+    "@hapi/vision": "^6.0.0",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "hapi-auth-bearer-token": "^6.1.6",
+    "hapi-jsonwebtoken": "^1.1.0",
+    "hapi-swagger": "^13.0.2",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.27.0",
+    "nodemon": "^2.0.4",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "ramda": "^0.27.0",
+    "require-all": "^3.0.0",
+    "sequelize": "^6.3.3",
+    "simple-node-logger": "^18.12.24"
+  },
+  "build": "localdev",
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
