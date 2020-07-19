@@ -45,7 +45,7 @@ npm manifest:
     "license": "ISC",
     "homepage": "https://bitbucket.org/luis0719/fox-adminjs#readme",
     "foxAdminDependencies": {
-      "foxAdminDb": "./src/database",
+      "db": "./src/database",
     },
     "dependencies": {
       "@hapi/basic": "^6.0.0",

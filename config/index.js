@@ -26,14 +26,21 @@ const apiService = {
 }
 
 const studies = {
-  studyMaxSize: 1000000,
-  studyMaxFiles: 10,
-  interpretationMaxSize: 1000000,
-  interpretationMaxFiles: 10,
+  samples: {
+    maxSize: false,
+    maxFiles: 30,
+    extensions: ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
+  },
+  interpretations: {
+    maxSize: false,
+    maxFiles: 10,
+    extensions: ['pdf', 'doc', 'docx']
+  }
 }
 
 const jwt = {
-  secretOrPrivateKey: process.env.JWT_SECRET
+  secretOrPrivateKey: process.env.JWT_SECRET,
+  ttl: 24 * 60 * 60 * 1000 // Time to live in milliseconds. Default: 1 day
 }
 
 const bcrypt = {

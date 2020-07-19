@@ -1,4 +1,4 @@
-const db = require('foxAdminDb');
+const db = require('db');
 const { User } = db.models;
 
-module.exports = (where) => User.findOne({ where });
+module.exports = (where) => User.findOne({ where, raw: true });

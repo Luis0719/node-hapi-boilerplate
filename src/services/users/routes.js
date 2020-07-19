@@ -16,5 +16,5 @@ module.exports = () => [
       auth: 'jwt',
       validate: {}
     }
-  },
+  }
 ]

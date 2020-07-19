@@ -1,17 +1,16 @@
 'use strict';
-const { bcrypt } = require('../../helpers');
+const { bcrypt } = require('common');
 const tableName = 'users'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    console.log(Sequelize.models);
     return queryInterface.bulkInsert(tableName, [{
       firstName: 'admin',
       lastName: 'MHS',
       email: 'admin@mhs.com',
       username: 'admin',
       password: await bcrypt.hash('admin'),
-      roles: [1],
+      roles: ['admin'],
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -20,7 +19,7 @@ module.exports = {
       email: 'supermedico@mhs.com',
       username: 'supermedico',
       password: await bcrypt.hash('supermedico'),
-      roles: [2, 3],
+      roles: ['tecnico', 'radiologo'],
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -29,7 +28,7 @@ module.exports = {
       email: 'radiologo@mhs.com',
       username: 'radiologo',
       password: await bcrypt.hash('radiologo'),
-      roles: [2],
+      roles: ['rediologo'],
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -38,7 +37,7 @@ module.exports = {
       email: 'tecnico@mhs.com',
       username: 'tecnico',
       password: await bcrypt.hash('tecnico'),
-      roles: [3],
+      roles: ['tecnico'],
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
