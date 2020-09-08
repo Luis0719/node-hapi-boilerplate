@@ -1,4 +1,4 @@
-const db = require('db');
-const { User } = db.models;
+const { db } = require('common');
+const { Users } = db.models;
 
-module.exports = (id) => User.findByPk(id, { raw: true });
+module.exports = (id, options = {}) => Users.findByPk(id, options);

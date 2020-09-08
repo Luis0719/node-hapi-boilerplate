@@ -22,7 +22,6 @@
   "homepage": "https://bitbucket.org/luis0719/fox-adminjs#readme",
   "customDependencies": {
     "config": "./config",
-    "db": "./src/database",
     "common": "./src/common"
   },
   "dependencies": {

@@ -8,32 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
+      first_name: {
         type: Sequelize.STRING(60),
+        allowNull: false,
       },
-      lastName: {
+      last_name: {
         type: Sequelize.STRING(60),
-        allowNull: true,
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: true,
       },
       username: {
         type: Sequelize.STRING(50),
         unique: true,
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING(50),
-        allowNull: true,
         unique: true,
       },
       phone: {
         type: Sequelize.STRING(15),
-        allowNull: true,
       },
       roles: {
         type: Sequelize.ARRAY(
@@ -41,21 +40,20 @@ module.exports = {
         ),
         defaultValue: []
       },
-      createdAt: {
-        allowNull: false,
+      created_at: {
         type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
+      updated_at: {
         type: Sequelize.DATE
       },
-      deletedAt: {
-        allowNull: true,
+      deleted_at: {
         type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('users', {
+      cascade: true
+    });
   }
 };

@@ -1,20 +1,21 @@
 'use strict';
 const tableName = 'roles';
+const defaultValues = {
+  created_at: new Date(),
+  updated_at: new Date()
+}
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(tableName, [{
       name: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      ...defaultValues,
     }, {
       name: 'radiologo',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      ...defaultValues,
     }, {
       name: 'tecnico',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      ...defaultValues,
     }]);
   },
 

@@ -1,7 +1,8 @@
 const moment = require('moment');
 const { jwt } = require("config");
-const { httpErrors } = require('common');
+const { httpErrors } = require('common').helpers;
 const { getUserById } = require('../../services/users/methods');
+const userHasPermission = require('./userHasPermission');
 
 const { Unauthorized } = httpErrors;
 
@@ -13,7 +14,7 @@ module.exports = {
   getToken: (request) => {
     return request.headers.authorization;
   },
-  validate: async (request, payload, h) => { 
+  validate: async (request, payload, h) => {
     if (!payload.id) {
       throw Unauthorized('Invalid authorization key');
     }
@@ -22,15 +23,14 @@ module.exports = {
       throw Unauthorized('Expired token');
     }
 
-    const user = await getUserById(payload.id);
+    const user = await getUserById(payload.id, { raw: true });
 
-    if (user) {
-      // Avoid saving the password in the auth object. It might be a security good practice?
-      delete user.password;
-      user.scope = user.roles;
-      return authorizedCredentials(user);
+    if (!user || !(await userHasPermission(request, user))) {
+      throw Unauthorized();
     }
 
-    throw Unauthorized()    
+    // Avoid saving the password in the auth object. It might be a security good practice?
+    delete user.password;
+    return authorizedCredentials(user);
   }
 };

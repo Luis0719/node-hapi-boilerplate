@@ -1,1 +1,4 @@
-module.exports = require('require-all')(__dirname);
+module.exports = {
+    getUser: require('./getUser'),
+    login: require('./login'),
+}

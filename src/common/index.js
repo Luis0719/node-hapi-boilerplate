@@ -1,4 +1,5 @@
 module.exports = {
-  bcrypt: require('./bcrypt'),
-  httpErrors: require('./httpErrors')
+  db: require('./database'),
+  helpers: require('./helpers'),
+  utils: require('./utils'),
 }

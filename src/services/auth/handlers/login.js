@@ -1,24 +1,25 @@
-const moment = require('moment');
-const { httpErrors, bcrypt } = require('common');
-const { Unauthorized } = httpErrors;
-const { jwt } = require('config');
+const { helpers } = require('common');
+const { InternalServer, Unauthorized } = helpers.httpErrors;
+const { to } = helpers.functionalHelpers;
 
-module.exports = async (request, { getUser }) => {
-  const { payload } = request;
+const {
+  login
+} = require('../methods');
 
-  const user = await getUser({ username: payload.username });
-  if(!user) {
-    throw Unauthorized();
+module.exports = async ({ plugins, payload, server }) => {
+  const { logger } = plugins;
+  const tokenizer = server.methods.jwtSign;
+
+  const [ error, token ] = await to(login(tokenizer, payload.username, payload.password));
+
+  if (error) {
+    logger.error(error);
+    throw InternalServer();
   }
 
-  const validPassword = await bcrypt.compare(payload.password, user.password);
-  if(!validPassword) {
-    throw Unauthorized();
+  if (!token) {
+    throw Unauthorized('Usuario o contraseña incorrectos');
   }
-  
-  return request.server.methods.jwtSign({
-    id: user.id,
-    roles: user.roles,
-    expiresAt: moment().add(jwt.ttl, 'milliseconds')
-  });
+
+  return JSON.stringify({ token });
 }
