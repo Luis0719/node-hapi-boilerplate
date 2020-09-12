@@ -1,11 +1,16 @@
 'use strict';
+require('dotenv').config();
+
+const { utils } = require('common');
 const pkg = require('../package');
+
 const serviceID = {
   name: pkg.name,
   version: pkg.build,
 };
 
-require('dotenv').config();
+const logger = utils.logger;
+
 const { joiValidator } = require('./middleware');
 const { server: config, cors } = require('config');
 config.routes = {
@@ -14,16 +19,6 @@ config.routes = {
     failAction: joiValidator,
   },
 };
-
-const simpleNodeLogger = require('simple-node-logger');
-const loggerOptions = {
-  errorEventName: 'ERROR',
-  logDirectory: '/logs',
-  fileNamePattern: 'server-<DATE>.log',
-  dateFormat: 'YYYY.MM.DD', // Used for the logfile name
-  timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS', // Used for each log
-};
-const logger = simpleNodeLogger.createSimpleLogger(loggerOptions);
 
 const routes = require('./routes');
 const plugins = require('./plugins')(serviceID, logger);

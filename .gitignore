@@ -102,3 +102,6 @@ dist
 
 # Webstorm
 .idea/
+
+# Env vars
+.env
