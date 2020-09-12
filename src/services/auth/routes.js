@@ -9,6 +9,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'auth'],
       description: 'Authenticate user and return JWT',
+      auth: 'basicToken',
       validate: {
         payload: Joi.object({
           username: Joi.string().required(),
@@ -23,7 +24,6 @@ module.exports = () => [
     config: {
       tags: ['api', 'auth'],
       description: 'Decode JWT',
-      auth: 'jwt',
     },
   },
 ]
