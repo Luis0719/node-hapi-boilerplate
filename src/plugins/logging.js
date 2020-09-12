@@ -12,7 +12,7 @@ module.exports = {
         // Attach logger into each request's plugins
         request.plugins.logger = logger;
         return h.continue;
-      }
+      },
     });
-  }
-}
+  },
+};

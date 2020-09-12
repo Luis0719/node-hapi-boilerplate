@@ -12,11 +12,12 @@ module.exports = () => [
       validate: {
         payload: Joi.object({
           username: Joi.string().required(),
-          password: Joi.string().required()
+          password: Joi.string().required(),
         }),
       },
-    }
-  },{
+    },
+  },
+  {
     method: 'GET',
     path: '/decode',
     handler: request => handlers.decode(request),
@@ -26,4 +27,4 @@ module.exports = () => [
       auth: 'jwt',
     },
   },
-]
+];

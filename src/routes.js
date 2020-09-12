@@ -3,15 +3,15 @@ module.exports = [
     method: 'GET',
     path: '/',
     handler: () => {
-      return 'Home'
+      return 'Home';
     },
-    config: {}
+    config: {},
   },
   {
     method: '*',
     path: '/{any*}',
     handler: function (request, h) {
-        return '404 Error! Page Not Found!';
-    }
-  }
+      return '404 Error! Page Not Found!';
+    },
+  },
 ];

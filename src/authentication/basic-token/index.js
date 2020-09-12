@@ -10,5 +10,5 @@ module.exports = {
     const artifacts = {};
 
     return { isValid, credentials, artifacts };
-  }
-}
+  },
+};
