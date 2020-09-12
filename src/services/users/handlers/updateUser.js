@@ -7,7 +7,7 @@ const { to } = helpers.functionalHelpers;
 module.exports = async ({ plugins, params, payload }) => {
   const { logger } = plugins;
 
-  const [ error, user ] = await to(updateUser(params.id, payload));
+  const [error, user] = await to(updateUser(params.id, payload));
 
   if (error) {
     logger.error(error);
@@ -19,4 +19,4 @@ module.exports = async ({ plugins, params, payload }) => {
   }
 
   return user;
-}
+};

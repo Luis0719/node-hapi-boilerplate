@@ -1,7 +1,6 @@
 const { db } = require('common');
 const { RoleActions, Actions } = db.models;
 
-
 module.exports = async (request, user) => {
   const roles = user.roles;
   const requestInfo = request.route;
@@ -22,9 +21,9 @@ module.exports = async (request, user) => {
         uri: requestInfo.path,
         method: requestInfo.method,
       },
-      required: true
+      required: true,
     },
   });
 
   return !!roleAction;
-}
+};

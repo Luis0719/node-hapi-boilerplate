@@ -1,9 +1,10 @@
 const { db } = require('common');
 const { Users } = db.models;
 
-module.exports = (username) => Users.findOne({
+module.exports = username =>
+  Users.findOne({
     where: {
-        username
+      username,
     },
     raw: true,
-})
+  });

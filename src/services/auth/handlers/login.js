@@ -2,15 +2,15 @@ const { helpers } = require('common');
 const { InternalServer, Unauthorized } = helpers.httpErrors;
 const { to } = helpers.functionalHelpers;
 
-const {
-  login
-} = require('../methods');
+const { login } = require('../methods');
 
 module.exports = async ({ plugins, payload, server }) => {
   const { logger } = plugins;
   const tokenizer = server.methods.jwtSign;
 
-  const [ error, token ] = await to(login(tokenizer, payload.username, payload.password));
+  const [error, token] = await to(
+    login(tokenizer, payload.username, payload.password)
+  );
 
   if (error) {
     logger.error(error);
@@ -22,4 +22,4 @@ module.exports = async ({ plugins, payload, server }) => {
   }
 
   return JSON.stringify({ token });
-}
+};

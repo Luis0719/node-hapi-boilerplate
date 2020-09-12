@@ -8,6 +8,7 @@
     "start": "yarn preinstall && node src/app.js",
     "watch": "yarn preinstall && nodemon src/app.js",
     "test": "",
+    "prettier": "prettier --write '{src,test}/**/*.js'",
     "migrate": "npx sequelize-cli db:migrate",
     "unmigrate": "npx sequelize-cli db:migrate:undo",
     "seed": "npx sequelize-cli db:seed:all",
@@ -46,8 +47,13 @@
     "sequelize": "^6.3.3",
     "simple-node-logger": "^18.12.24"
   },
-  "build": "localdev",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "prettier": "^2.1.1",
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "build": "localdev"
 }

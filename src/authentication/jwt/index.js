@@ -1,17 +1,17 @@
 const moment = require('moment');
-const { jwt } = require("config");
+const { jwt } = require('config');
 const { httpErrors } = require('common').helpers;
 const { getUserById } = require('../../services/users/methods');
 const userHasPermission = require('./userHasPermission');
 
 const { Unauthorized } = httpErrors;
 
-const authorizedCredentials = (credentials) => ({ isValid: true, credentials });
-const isTokenExpired = (expiresAt) => moment(expiresAt) < moment();
+const authorizedCredentials = credentials => ({ isValid: true, credentials });
+const isTokenExpired = expiresAt => moment(expiresAt) < moment();
 
 module.exports = {
   secretOrPrivateKey: jwt.secretOrPrivateKey,
-  getToken: (request) => {
+  getToken: request => {
     return request.headers.authorization;
   },
   validate: async (request, payload, h) => {
@@ -32,5 +32,5 @@ module.exports = {
     // Avoid saving the password in the auth object. It might be a security good practice?
     delete user.password;
     return authorizedCredentials(user);
-  }
+  },
 };
