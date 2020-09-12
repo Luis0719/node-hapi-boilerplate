@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const handlers = require('./handlers');
 
-
 module.exports = () => [
   {
     method: 'GET',
@@ -14,11 +13,12 @@ module.exports = () => [
       plugins: {
         'hapi-swagger': {
           security: [{ 'API Key': {} }],
-          payloadType: 'form'
-        }
+          payloadType: 'form',
+        },
       },
-    }
-  }, {
+    },
+  },
+  {
     method: 'GET',
     path: '/{id}',
     handler: request => handlers.getUser(request),
@@ -28,11 +28,12 @@ module.exports = () => [
       auth: 'jwt',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required()
-        })
+          id: Joi.number().integer().required(),
+        }),
       },
-    }
-  }, {
+    },
+  },
+  {
     method: 'POST',
     path: '/',
     handler: (request, reply) => handlers.storeUser(request, reply),
@@ -47,15 +48,16 @@ module.exports = () => [
           image: Joi.string(),
           username: Joi.string().required(),
           password: Joi.string().required(),
-          email: Joi.string().max(50).email({ tlds: { allow: false } }),
+          email: Joi.string()
+            .max(50)
+            .email({ tlds: { allow: false } }),
           phone: Joi.string(),
-          roles: Joi.array().items(
-            Joi.string()
-          ),
+          roles: Joi.array().items(Joi.string()),
         }),
       },
-    }
-  }, {
+    },
+  },
+  {
     method: 'PUT',
     path: '/{id}',
     handler: request => handlers.updateUser(request),
@@ -65,22 +67,23 @@ module.exports = () => [
       auth: 'jwt',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required()
+          id: Joi.number().integer().required(),
         }),
         payload: Joi.object({
           first_name: Joi.string().max(60).required(),
           last_name: Joi.string().max(60).required(),
           image: Joi.string(),
           username: Joi.string().required(),
-          email: Joi.string().max(50).email({ tlds: { allow: false } }),
+          email: Joi.string()
+            .max(50)
+            .email({ tlds: { allow: false } }),
           phone: Joi.string(),
-          roles: Joi.array().items(
-            Joi.string()
-          ),
-        })
+          roles: Joi.array().items(Joi.string()),
+        }),
       },
-    }
-  }, {
+    },
+  },
+  {
     method: 'DELETE',
     path: '/{id}',
     handler: request => handlers.deleteUser(request),
@@ -90,9 +93,9 @@ module.exports = () => [
       auth: 'jwt',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required()
-        })
+          id: Joi.number().integer().required(),
+        }),
       },
-    }
-  }
-]
+    },
+  },
+];

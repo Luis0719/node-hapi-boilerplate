@@ -11,12 +11,12 @@ const createErrorCode = compose(appendError, removeSpaces, getBoomError);
 const extendWithErrorCode = (originalError, customError) => (
   message,
   scheme = 'Basic',
-  debug = server.debug,
+  debug = server.debug
 ) => {
   const originalErrorInstance = originalError(message, scheme);
   if (customError) originalErrorInstance.output.payload.error = customError;
   originalErrorInstance.output.payload.code = createErrorCode(
-    originalErrorInstance,
+    originalErrorInstance
   );
   if (
     debug &&

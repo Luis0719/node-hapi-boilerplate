@@ -1,8 +1,5 @@
 const { helpers } = require('common');
-const {
-  buildFilterCondition,
-  getUsers,
-} = require('../methods');
+const { buildFilterCondition, getUsers } = require('../methods');
 
 const { to } = helpers.functionalHelpers;
 const { InternalServer } = helpers.httpErrors;
@@ -14,7 +11,7 @@ module.exports = async ({ plugins, query }, methods) => {
   const options = buildSequelizeOptions(query);
   options.where = buildFilterCondition(query);
 
-  const [ error, users ] = await to(getUsers(options));
+  const [error, users] = await to(getUsers(options));
 
   if (error) {
     logger.error(error);
@@ -22,4 +19,4 @@ module.exports = async ({ plugins, query }, methods) => {
   }
 
   return users;
-}
+};

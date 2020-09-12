@@ -11,7 +11,7 @@ module.exports = async ({ plugins, payload }, reply) => {
 
   payload.password = await bcrypt.hash(payload.password);
 
-  const [ error, user ] = await to(Users.create(payload));
+  const [error, user] = await to(Users.create(payload));
 
   if (error) {
     logger.error(error);
@@ -19,4 +19,4 @@ module.exports = async ({ plugins, payload }, reply) => {
   }
 
   return reply.response(user).code(201);
-}
+};

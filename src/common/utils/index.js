@@ -1,3 +1,3 @@
 module.exports = {
-    bcrypt: require('./bcrypt'),
-}
+  bcrypt: require('./bcrypt'),
+};

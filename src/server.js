@@ -1,6 +1,6 @@
 const Hapi = require('@hapi/hapi');
 
-module.exports = async ({config = {}, routes = {}, plugins = {}}) => {
+module.exports = async ({ config = {}, routes = {}, plugins = {} }) => {
   // Creates server instance
   const server = new Hapi.Server(config);
 
@@ -13,4 +13,4 @@ module.exports = async ({config = {}, routes = {}, plugins = {}}) => {
   server.route(routes);
 
   return server;
-}
+};
