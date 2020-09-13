@@ -5,19 +5,17 @@ const {
     response: { representAs },
   },
 } = require('common');
-const { getRoleById } = require('../methods');
+const { deleteRole } = require('../methods');
 
 module.exports = async ({ plugins, params }) => {
   const { logger } = plugins;
 
-  const [error, role] = await to(getRoleById(params.id));
+  const [error, deletedRole] = await to(deleteRole(params.id));
 
   if (error) {
     logger.error(error);
     throw InternalServer();
   }
 
-  logger.info(role);
-
-  return representAs('role')(role);
+  return representAs('role')(deletedRole);
 };
