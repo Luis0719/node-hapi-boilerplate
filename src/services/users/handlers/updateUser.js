@@ -1,8 +1,11 @@
-const { helpers } = require('common');
+const {
+  helpers: {
+    httpErrors: { InternalServer, NotFound },
+    functionalHelpers: { to },
+    response: { representAs },
+  },
+} = require('common');
 const { updateUser } = require('../methods');
-
-const { InternalServer, NotFound } = helpers.httpErrors;
-const { to } = helpers.functionalHelpers;
 
 module.exports = async ({ plugins, params, payload }) => {
   const { logger } = plugins;
@@ -18,5 +21,5 @@ module.exports = async ({ plugins, params, payload }) => {
     throw NotFound();
   }
 
-  return user;
+  return representAs('user')(user);
 };

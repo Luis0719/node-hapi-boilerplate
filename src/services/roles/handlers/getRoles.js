@@ -1,9 +1,12 @@
-const { helpers } = require('common');
+const {
+  helpers: {
+    httpErrors: { InternalServer },
+    functionalHelpers: { to },
+    response: { representAsPaginated },
+    sequelize: { buildSequelizeOptions },
+  },
+} = require('common');
 const { getRoles, buildFilterCondition } = require('../methods');
-
-const { to } = helpers.functionalHelpers;
-const { InternalServer } = helpers.httpErrors;
-const { buildSequelizeOptions } = helpers.sequelize;
 
 module.exports = async ({ plugins, query }) => {
   const { logger } = plugins;
@@ -18,5 +21,5 @@ module.exports = async ({ plugins, query }) => {
     throw InternalServer();
   }
 
-  return roles;
+  return representAsPaginated('role')(roles);
 };

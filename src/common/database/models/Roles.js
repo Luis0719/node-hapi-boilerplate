@@ -8,7 +8,7 @@ module.exports = sequelize => {
       name: DataTypes.STRING,
     },
     {
-      // tableName: 'roles',
+      tableName: 'roles',
     }
   );
 
