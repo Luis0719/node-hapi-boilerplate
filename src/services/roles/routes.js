@@ -13,6 +13,21 @@ module.exports = () => [
     },
   },
   {
+    method: 'get',
+    path: '/{id}',
+    handler: request => handlers.getRole(request),
+    config: {
+      tags: ['api', 'roles'],
+      description: 'Get role by ID',
+      auth: 'jwt',
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().required(),
+        }),
+      },
+    },
+  },
+  {
     method: 'post',
     path: '/',
     handler: request => handlers.storeRole(request),

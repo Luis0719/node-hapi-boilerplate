@@ -13,7 +13,10 @@ module.exports = sequelize => {
   );
 
   Roles.associate = models => {
-    Roles.hasMany(models.RoleActions, { foreignKey: 'role' });
+    Roles.hasMany(models.RoleActions, {
+      foreignKey: 'role',
+      sourceKey: 'name',
+    });
   };
 
   return Roles;

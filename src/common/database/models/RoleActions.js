@@ -15,7 +15,8 @@ module.exports = sequelize => {
 
   RoleActions.associate = models => {
     RoleActions.belongsTo(models.Roles, {
-      foreignKey: 'role',
+      sourceKeu: 'role',
+      foreignKey: 'name',
       foreignKeyConstraint: true,
     });
     RoleActions.belongsTo(models.Actions, { foreignKeyConstraint: true });
