@@ -1,15 +1,17 @@
 'use strict';
 require('dotenv').config();
 
-const { utils } = require('common');
+const { utils, representations } = require('common');
 const pkg = require('../package');
+const jiggler = require('jiggler');
 
 const serviceID = {
   name: pkg.name,
   version: pkg.build,
 };
 
-const logger = utils.logger;
+// Load jiggle representations
+representations.init(jiggler);
 
 const { joiValidator } = require('./middleware');
 const { server: config, cors } = require('config');
@@ -20,6 +22,7 @@ config.routes = {
   },
 };
 
+const logger = utils.logger;
 const routes = require('./routes');
 const plugins = require('./plugins')(serviceID, logger);
 const createServer = require('./server');

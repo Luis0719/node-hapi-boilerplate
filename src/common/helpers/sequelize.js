@@ -9,13 +9,15 @@ const buildSequelizeOptions = params => {
     options.order = [[params.sortBy, params.sortOrder || 'ASC']];
   }
 
-  if (params.limit) {
-    options.limit = params.limit;
-  }
-
   if (params.includeDeleted) {
     options.paranoid = false;
   }
+
+  if (params.offset) {
+    options.offset = params.offset;
+  }
+
+  options.limit = params.limit || 30;
 
   return options;
 };

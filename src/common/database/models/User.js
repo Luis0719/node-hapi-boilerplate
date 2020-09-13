@@ -23,7 +23,7 @@ module.exports = sequelize => {
   Users.associate = models => {};
 
   Users.prototype.setPassword = async password => {
-    this.password = await bcrypt.hash(password); // TODO encrypt
+    this.password = await bcrypt.hash(password);
   };
 
   Users.prototype.getFullName = () => {

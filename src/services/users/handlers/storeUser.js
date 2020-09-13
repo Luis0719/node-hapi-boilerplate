@@ -1,22 +1,24 @@
-const { db, helpers, utils } = require('common');
+const {
+  utils: { bcrypt },
+  helpers: {
+    httpErrors: { InternalServer },
+    functionalHelpers: { to },
+    response: { representAs },
+  },
+} = require('common');
+const { storeUser } = require('../methods');
 
-const { bcrypt } = utils;
-const { InternalServer } = helpers.httpErrors;
-const { to } = helpers.functionalHelpers;
-
-const { Users } = db.models;
-
-module.exports = async ({ plugins, payload }, reply) => {
+module.exports = async ({ plugins, payload }) => {
   const { logger } = plugins;
 
   payload.password = await bcrypt.hash(payload.password);
 
-  const [error, user] = await to(Users.create(payload));
+  const [error, user] = await to(storeUser(payload));
 
   if (error) {
     logger.error(error);
     throw InternalServer();
   }
 
-  return reply.response(user).code(201);
+  return representAs('user')(user);
 };
