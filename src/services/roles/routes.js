@@ -43,4 +43,19 @@ module.exports = () => [
       },
     },
   },
+  {
+    method: 'delete',
+    path: '/{id}',
+    handler: request => handlers.deleteRole(request),
+    config: {
+      tags: ['api', 'roles'],
+      description: 'Delete role',
+      auth: 'jwt',
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().required(),
+        }),
+      },
+    },
+  },
 ];
