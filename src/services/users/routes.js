@@ -36,7 +36,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/',
-    handler: (request, reply) => handlers.storeUser(request, reply),
+    handler: request => handlers.storeUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Store new user',

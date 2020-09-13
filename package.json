@@ -36,6 +36,7 @@
     "hapi-auth-bearer-token": "^6.1.6",
     "hapi-jsonwebtoken": "^1.1.0",
     "hapi-swagger": "^13.0.2",
+    "jiggler": "^1.0.1",
     "joi": "^14.3.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
@@ -43,7 +44,7 @@
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "ramda": "^0.27.0",
-    "require-all": "^3.0.0",
+    "require-directory": "^2.1.1",
     "sequelize": "^6.3.3",
     "simple-node-logger": "^18.12.24"
   },

@@ -1,8 +1,11 @@
-const { helpers } = require('common');
+const {
+  helpers: {
+    httpErrors: { InternalServer, NotFound },
+    functionalHelpers: { to },
+    response: { representAs },
+  },
+} = require('common');
 const { getUserById } = require('../methods');
-
-const { to } = helpers.functionalHelpers;
-const { InternalServer, NotFound } = helpers.httpErrors;
 
 module.exports = async ({ plugins, params }) => {
   const { logger } = plugins;
@@ -18,5 +21,8 @@ module.exports = async ({ plugins, params }) => {
     throw NotFound();
   }
 
-  return user;
+  logger.info(user);
+  logger.info(user.created_at);
+
+  return representAs('user')(user);
 };
