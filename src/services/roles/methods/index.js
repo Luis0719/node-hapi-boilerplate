@@ -4,4 +4,5 @@ module.exports = {
   getRoleById: require('./getRoleById'),
   getRoles: require('./getRoles'),
   storeRole: require('./storeRole'),
+  updateRole: require('./updateRole'),
 };
