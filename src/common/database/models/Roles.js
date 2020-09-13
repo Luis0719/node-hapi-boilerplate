@@ -8,12 +8,15 @@ module.exports = sequelize => {
       name: DataTypes.STRING,
     },
     {
-      // tableName: 'roles',
+      tableName: 'roles',
     }
   );
 
   Roles.associate = models => {
-    Roles.hasMany(models.RoleActions, { foreignKey: 'role' });
+    Roles.hasMany(models.RoleActions, {
+      foreignKey: 'role',
+      sourceKey: 'name',
+    });
   };
 
   return Roles;

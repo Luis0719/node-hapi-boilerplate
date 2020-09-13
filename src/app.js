@@ -1,43 +1,39 @@
 'use strict';
+require('dotenv').config();
+
+const { utils, representations } = require('common');
 const pkg = require('../package');
+const jiggler = require('jiggler');
+
 const serviceID = {
   name: pkg.name,
   version: pkg.build,
 };
 
+// Load jiggle representations
+representations.init(jiggler);
+
 const { joiValidator } = require('./middleware');
-const { server: config, cors} = require('config');
+const { server: config, cors } = require('config');
 config.routes = {
-    cors,
-    validate: {
-        failAction: joiValidator
-    }
-}
+  cors,
+  validate: {
+    failAction: joiValidator,
+  },
+};
 
-
-
-const simpleNodeLogger = require('simple-node-logger');
-const loggerOptions = {
-    errorEventName:'ERROR',
-    logDirectory:'/logs',
-    fileNamePattern:'server-<DATE>.log',
-    dateFormat:'YYYY.MM.DD', // Used for the logfile name
-    timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS', // Used for each log
-}
-const logger = simpleNodeLogger.createSimpleLogger(loggerOptions);
-
-
-
+const logger = utils.logger;
 const routes = require('./routes');
 const plugins = require('./plugins')(serviceID, logger);
 const createServer = require('./server');
 
-createServer({config, routes, plugins})
-    .then(server => {
-        return server.start().then(() => {
-            logger.info(`Server started on port: ${server.info.port}`)
-        });
-    }).catch(err => {
-        logger.fatal(err);
-        process.exitCode = 1;
-    })
+createServer({ config, routes, plugins })
+  .then(server => {
+    return server.start().then(() => {
+      logger.info(`Server started on port: ${server.info.port}`);
+    });
+  })
+  .catch(err => {
+    logger.fatal(err);
+    process.exitCode = 1;
+  });

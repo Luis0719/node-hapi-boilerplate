@@ -1,4 +1,4 @@
-const buildSequelizeOptions = (params) => {
+const buildSequelizeOptions = params => {
   const options = {};
 
   if (params.raw) {
@@ -6,25 +6,22 @@ const buildSequelizeOptions = (params) => {
   }
 
   if (params.sortBy) {
-    options.order = [
-      [
-        params.sortBy,
-        params.sortOrder || 'ASC'
-      ]
-    ]
-  }
-
-  if (params.limit) {
-    options.limit = params.limit
+    options.order = [[params.sortBy, params.sortOrder || 'ASC']];
   }
 
   if (params.includeDeleted) {
     options.paranoid = false;
   }
 
-  return options
-}
+  if (params.offset) {
+    options.offset = params.offset;
+  }
+
+  options.limit = params.limit || 30;
+
+  return options;
+};
 
 module.exports = {
-  buildSequelizeOptions
+  buildSequelizeOptions,
 };
