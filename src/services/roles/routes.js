@@ -44,6 +44,30 @@ module.exports = () => [
     },
   },
   {
+    method: 'put',
+    path: '/{id}',
+    handler: request => handlers.updateRole(request),
+    config: {
+      tags: ['api', 'roles'],
+      description: 'Update role',
+      auth: 'jwt',
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().required(),
+        }),
+        payload: Joi.object({
+          name: Joi.string().min(3).max(30),
+          actions: Joi.array().items(
+            Joi.object({
+              type: Joi.valid('create', 'delete'),
+              action_id: Joi.number().integer(),
+            })
+          ),
+        }),
+      },
+    },
+  },
+  {
     method: 'delete',
     path: '/{id}',
     handler: request => handlers.deleteRole(request),
