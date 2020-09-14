@@ -1,13 +1,49 @@
+version: '3.6'
+
 services:
-  db:
+  db_dev:
+    container_name: 'db_dev'
     image: postgres
     environment:
       POSTGRES_USER: foxadmin
-      POSTGRES_PASSWORD: asquell.123
+      POSTGRES_PASSWORD: foxadmin
       POSTGRES_DB: fox_dev
-    volumnes:
-      - ./pgdata:/var/lib/postgresql/data
+    volumes:
+      - ./postgres/pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-  web:
-    image:
+
+  api_dev:
+    container_name: 'api_dev'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: "yarn run start:dev"
+    depends_on:
+      - db_dev
+    entrypoint: ./docker-entrypoint.sh
+    environment:
+      - APP_ENV=development
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+
+  api_prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    command: "yarn run start:prod"
+    entrypoint: ./docker-entrypoint.sh
+    environment:
+      - APP_ENV=production
+      - NODE_ENV=production
+    ports:
+      - "3060:3000"
+
+volumes:
+  node_modules:
