@@ -1,5 +1,4 @@
 'use strict';
-require('dotenv').config();
 
 const { utils, representations } = require('common');
 const pkg = require('../package');
