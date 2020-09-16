@@ -10,12 +10,6 @@ module.exports = () => [
       tags: ['api', 'users'],
       description: 'Get list of all users',
       auth: 'jwt',
-      plugins: {
-        'hapi-swagger': {
-          security: [{ 'API Key': {} }],
-          payloadType: 'form',
-        },
-      },
     },
   },
   {

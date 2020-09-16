@@ -7,9 +7,7 @@ const {
 } = require('common');
 const { getUserById } = require('../methods');
 
-module.exports = async ({ plugins, params }) => {
-  const { logger } = plugins;
-
+module.exports = async ({ logger, params }) => {
   const [error, user] = await to(getUserById(params.id));
 
   if (error) {

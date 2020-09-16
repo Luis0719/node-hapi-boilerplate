@@ -7,9 +7,7 @@ const {
 } = require('common');
 const { storeRole } = require('../methods');
 
-module.exports = async ({ plugins, payload }) => {
-  const { logger } = plugins;
-
+module.exports = async ({ logger, payload }) => {
   const [error, role] = await to(storeRole(payload));
 
   if (error) {

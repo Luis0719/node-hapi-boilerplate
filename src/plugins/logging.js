@@ -1,18 +1,16 @@
 module.exports = {
-  name: 'server-logging',
+  name: 'pino-logger',
   version: '1.0.0',
-  register: (server, { logger }) => {
-    if (!logger) {
-      throw new Error('options.logger is required to be a logger function');
-    }
-
-    server.ext({
-      type: 'onRequest',
-      method: (request, h) => {
-        // Attach logger into each request's plugins
-        request.plugins.logger = logger;
-        return h.continue;
-      },
-    });
+  plugin: require('hapi-pino'),
+  options: {
+    prettyPrint: process.env.NODE_ENV !== 'production',
+    redact: ['req.headers.authorization'], // Protect sensitive data
+    serializers: {
+      req: req => ({
+        url: `${req.method.toUpperCase()} ${req.url}`,
+        headers: req.headers,
+      }),
+      res: res => res.statusCode,
+    },
   },
 };

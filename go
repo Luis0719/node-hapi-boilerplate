@@ -133,6 +133,10 @@ function install {
   run_yarn install
 }
 
+function prettier {
+  run_yarn make-pretty
+}
+
 function stop {
   ${DC} stop
   ${DC} down
@@ -188,6 +192,8 @@ case "$1" in
     yarn) run_yarn ${@:2}
     ;;
     install) install
+    ;;
+    prettier) prettier
     ;;
     stop) stop
     ;;

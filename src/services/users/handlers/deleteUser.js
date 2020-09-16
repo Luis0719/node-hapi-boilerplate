@@ -7,9 +7,7 @@ const {
 } = require('common');
 const { deleteUser } = require('../methods');
 
-module.exports = async ({ plugins, params }) => {
-  const { logger } = plugins;
-
+module.exports = async ({ logger, params }) => {
   const [error, user] = await to(deleteUser(params.id));
 
   if (error) {
