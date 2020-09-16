@@ -1,10 +1,9 @@
 {
-  "name": "fox-adminjs",
+  "name": "hapi-node-jwt",
   "version": "1.0.0",
-  "description": "Fox admin with nodeJS",
-  "main": "index.js",
+  "description": "Template for Hapi APIs",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node src/app.js",
     "start:dev": "node src/app.js",
     "start:prod": "node src/app.js",
     "watch": "nodemon src/app.js",
@@ -17,9 +16,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://luis0719@bitbucket.org/luis0719/fox-adminjs.git"
+    "url": "git+https://github.com/Luis0719/node-hapi-boilerplate.git"
   },
-  "author": "Asquell",
+  "author": "Luis0719",
   "license": "ISC",
   "homepage": "https://bitbucket.org/luis0719/fox-adminjs#readme",
   "customDependencies": {
@@ -41,7 +40,6 @@
     "joi": "^14.3.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
-    "nodemon": "^2.0.4",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "ramda": "^0.27.0",
@@ -54,6 +52,7 @@
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-mocha": "^8.0.0",
+    "nodemon": "^2.0.4",
     "prettier": "^2.1.1",
     "sequelize-cli": "^6.2.0"
   },

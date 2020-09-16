@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: "yarn run start:dev"
+    command: "yarn run watch"
     depends_on:
       - db_dev
     entrypoint: ./docker-entrypoint.sh
