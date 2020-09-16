@@ -40,7 +40,7 @@ const studies = {
 
 const jwt = {
   secretOrPrivateKey: process.env.JWT_SECRET,
-  ttl: 24 * 60 * 60 * 1000 // Time to live in milliseconds. Default: 1 day
+  ttl: 24 * 60 * 60 // Time to live in seconds. Default: 1 day
 }
 
 const bcrypt = {

@@ -1,5 +1,5 @@
 const { jwt: config } = require('config');
-const moment = require('moment');
+const { DateTime } = require('luxon');
 const { utils } = require('common');
 const { bcrypt } = utils;
 const getUser = require('./getUser');
@@ -18,6 +18,6 @@ module.exports = async (tokenizer, username, password) => {
   return tokenizer({
     id: user.id,
     roles: user.roles,
-    expiresAt: moment().add(config.ttl, 'milliseconds'),
+    expiresAt: DateTime.local().plus({ seconds: config.ttl }),
   });
 };

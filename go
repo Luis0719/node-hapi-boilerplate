@@ -98,8 +98,7 @@ function migrate {
 }
 
 function seed {
-  info "DB seeding"
-  ${DC} run ${DEV_IMAGE} npx sequelize db:seed
+  run_yarn seed
 }
 
 function create-migration {
@@ -121,9 +120,13 @@ function start {
   ${DC} up ${DEV_IMAGE}
 }
 
-function run_yarn {
+function exec {
   echo "Running $@"
-  ${DC} run ${DEV_IMAGE} yarn $@
+  ${DC} run ${DEV_IMAGE} $@
+}
+
+function run_yarn {
+  exec yarn $@
 }
 
 function install {
@@ -180,7 +183,9 @@ case "$1" in
     ;;
     start) start
     ;;
-    yarn) run_yarn $@
+    exec) exec ${@:2} # Send all but first arg
+    ;;
+    yarn) run_yarn ${@:2}
     ;;
     install) install
     ;;

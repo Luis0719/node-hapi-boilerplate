@@ -1,5 +1,5 @@
 'use strict';
-const { bcrypt } = require('common');
+const { bcrypt } = require('common').utils;
 const tableName = 'users';
 const defaultValues = {
   created_at: new Date(),
