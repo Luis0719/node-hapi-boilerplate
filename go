@@ -118,7 +118,16 @@ function create-seed {
 }
 
 function start {
-  ${DC} up
+  ${DC} up ${DEV_IMAGE}
+}
+
+function run_yarn {
+  echo "Running $@"
+  ${DC} run ${DEV_IMAGE} yarn $@
+}
+
+function install {
+  run_yarn install
 }
 
 function stop {
@@ -170,6 +179,10 @@ case "$1" in
     init) init
     ;;
     start) start
+    ;;
+    yarn) run_yarn $@
+    ;;
+    install) install
     ;;
     stop) stop
     ;;
