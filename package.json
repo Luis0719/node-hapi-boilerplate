@@ -45,8 +45,7 @@
     "pg-hstore": "^2.3.3",
     "ramda": "^0.27.0",
     "require-directory": "^2.1.1",
-    "sequelize": "^6.3.3",
-    "simple-node-logger": "^18.12.24"
+    "sequelize": "^6.3.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
