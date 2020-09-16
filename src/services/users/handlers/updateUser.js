@@ -7,9 +7,7 @@ const {
 } = require('common');
 const { updateUser } = require('../methods');
 
-module.exports = async ({ plugins, params, payload }) => {
-  const { logger } = plugins;
-
+module.exports = async ({ logger, params, payload }) => {
   const [error, user] = await to(updateUser(params.id, payload));
 
   if (error) {

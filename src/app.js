@@ -1,6 +1,6 @@
 'use strict';
 
-const { utils, representations } = require('common');
+const { representations } = require('common');
 const pkg = require('../package');
 const jiggler = require('jiggler');
 
@@ -21,18 +21,15 @@ config.routes = {
   },
 };
 
-const logger = utils.logger;
 const routes = require('./routes');
-const plugins = require('./plugins')(serviceID, logger);
+const plugins = require('./plugins')(serviceID);
 const createServer = require('./server');
 
 createServer({ config, routes, plugins })
   .then(server => {
-    return server.start().then(() => {
-      logger.info(`Server started on port: ${server.info.port}`);
-    });
+    return server.start().then(() => {});
   })
   .catch(err => {
-    logger.fatal(err);
+    console.log(err); // eslint-disable-line no-console
     process.exitCode = 1;
   });

@@ -1,9 +1,14 @@
+const pkg = require('../package.json');
+
 module.exports = [
   {
     method: 'GET',
     path: '/',
     handler: () => {
-      return 'Home';
+      return {
+        service: pkg.name,
+        version: pkg.version,
+      };
     },
     config: {},
   },
