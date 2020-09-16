@@ -1,4 +1,4 @@
-const moment = require('moment');
+const { DateTime } = require('luxon');
 const { jwt } = require('config');
 const { httpErrors } = require('common').helpers;
 const { getUserById } = require('../../services/users/methods');
@@ -7,7 +7,8 @@ const userHasPermission = require('./userHasPermission');
 const { Unauthorized } = httpErrors;
 
 const authorizedCredentials = credentials => ({ isValid: true, credentials });
-const isTokenExpired = expiresAt => moment(expiresAt) < moment();
+const isTokenExpired = expiresAt =>
+  DateTime.fromISO(expiresAt) < DateTime.local();
 
 module.exports = {
   secretOrPrivateKey: jwt.secretOrPrivateKey,

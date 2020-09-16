@@ -23,6 +23,7 @@ module.exports = () => [
     path: '/decode',
     handler: request => handlers.decode(request),
     config: {
+      auth: 'jwt',
       tags: ['api', 'auth'],
       description: 'Decode JWT',
     },
