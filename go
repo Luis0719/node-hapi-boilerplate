@@ -47,7 +47,7 @@ function helptext {
   echo "    stop                    Shut down the server and it's dependencies."
   echo "    nuke                    Remove all local resources related to this project."
   echo "    lint                    Lint the javascript code."
-  echo "    test                    Run laravel tests"
+  echo "    test                    Run tests"
   echo "    create-migration <name> Create new db migration"
   echo "    create-model <name>     Create new db model"
   echo "    create-seed <name>      Create new db seed"
@@ -61,7 +61,7 @@ function pre-commit {
 }
 
 function test {
-  ${DC} run --rm dev yarn run test
+  run_yarn test
 }
 
 function lint {
