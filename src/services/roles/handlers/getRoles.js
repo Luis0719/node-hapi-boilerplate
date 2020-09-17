@@ -8,9 +8,7 @@ const {
 } = require('common');
 const { getRoles, buildFilterCondition } = require('../methods');
 
-module.exports = async ({ plugins, query }) => {
-  const { logger } = plugins;
-
+module.exports = async ({ logger, query }) => {
   const options = buildSequelizeOptions(query);
   options.where = buildFilterCondition(query);
 

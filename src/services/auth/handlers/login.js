@@ -4,8 +4,7 @@ const { to } = helpers.functionalHelpers;
 
 const { login } = require('../methods');
 
-module.exports = async ({ plugins, payload, server }) => {
-  const { logger } = plugins;
+module.exports = async ({ logger, payload, server }) => {
   const tokenizer = server.methods.jwtSign;
 
   const [error, token] = await to(
