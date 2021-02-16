@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config({ path: `config/${process.env.APP_ENV}` })
 
 const { representations } = require('common');
 const jiggler = require('jiggler');

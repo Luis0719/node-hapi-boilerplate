@@ -5,9 +5,9 @@ services:
     container_name: 'db_dev'
     image: postgres
     environment:
-      POSTGRES_USER: foxadmin
-      POSTGRES_PASSWORD: foxadmin
-      POSTGRES_DB: fox_dev
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: dev
     volumes:
       - ./postgres/pgdata:/var/lib/postgresql/data
     ports:
@@ -17,7 +17,8 @@ services:
     container_name: 'api_dev'
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
+      target: dev
     command: "yarn run watch"
     depends_on:
       - db_dev
@@ -31,19 +32,3 @@ services:
     tty: true
     volumes:
       - ./:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
-
-  api_prod:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    command: "yarn run start:prod"
-    entrypoint: ./docker-entrypoint.sh
-    environment:
-      - APP_ENV=production
-      - NODE_ENV=production
-    ports:
-      - "3060:3000"
-
-volumes:
-  node_modules:

@@ -25,19 +25,6 @@ const apiService = {
   allowQueryToken: true
 }
 
-const studies = {
-  samples: {
-    maxSize: false,
-    maxFiles: 30,
-    extensions: ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
-  },
-  interpretations: {
-    maxSize: false,
-    maxFiles: 10,
-    extensions: ['pdf', 'doc', 'docx']
-  }
-}
-
 const jwt = {
   secretOrPrivateKey: process.env.JWT_SECRET,
   ttl: 24 * 60 * 60 // Time to live in seconds. Default: 1 day
@@ -53,5 +40,4 @@ module.exports = {
   cors,
   jwt,
   server,
-  studies,
 }

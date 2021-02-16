@@ -7,17 +7,10 @@ module.exports = {
   options: {
     documentationPath: '/documentation',
     info: {
-      title: 'Fox-admin API',
+      title: 'API',
       version: pkg.version,
     },
     basePath: '/api',
     grouping: 'tags',
-    securityDefinitions: {
-      'API Key': {
-        type: 'apiKey', // apiKey is defined by the Swagger spec
-        name: 'access_token', // the name of the query parameter / header
-        in: 'query', // how the key is passed
-      },
-    },
   },
 };
