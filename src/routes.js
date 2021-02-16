@@ -8,7 +8,6 @@ module.exports = [
       return {
         service: pkg.name,
         version: pkg.version,
-        msg: 'Hola! Bienvenidos a mi sitio :D'
       };
     },
     config: {},

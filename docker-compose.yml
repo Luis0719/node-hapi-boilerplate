@@ -2,8 +2,7 @@ version: '3.6'
 
 services:
   db_dev:
-    container_name: 'db_dev'
-    image: postgres
+    image: postgres:9.6.21
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -14,7 +13,6 @@ services:
       - '5432:5432'
 
   api_dev:
-    container_name: 'api_dev'
     build:
       context: .
       dockerfile: Dockerfile
@@ -32,3 +30,4 @@ services:
     tty: true
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules

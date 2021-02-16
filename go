@@ -74,27 +74,7 @@ function init {
 }
 
 function migrate {
-  shift
-
-  run_env=${1?Unknown migration environment! Please specify dev, test, staging or prod}
-
-  info "Running migrations for ${run_env} environment..."
-
-  case "${run_env}" in
-      dev|development) SERVICE="development"
-      ;;
-      test) SERVICE="test"
-      ;;
-      staging) SERVICE="staging"
-      ;;
-      prod|production) SERVICE="production"
-      ;;
-      *) error $"Unknown migration environment! Please specify dev, test, staging or prod"
-        helptext
-        exit 1
-  esac
-
-  dev_container_run yarn run migrate up -- --env=${SERVICE}
+  run_yarn migrate
 }
 
 function seed {
@@ -156,6 +136,10 @@ function nuke {
   fi
 }
 
+function shell {
+  exec bash
+}
+
 
 # If we have a pre-commit hook and the pre-commit hook does not equal what we
 # want it to equal for this project then back it up with a timestamped file
@@ -198,6 +182,8 @@ case "$1" in
     stop) stop
     ;;
     pre-commit) pre-commit
+    ;;
+    shell) shell
     ;;
     env) env
     ;;
