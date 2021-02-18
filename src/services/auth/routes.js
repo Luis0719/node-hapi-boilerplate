@@ -4,7 +4,7 @@ const handlers = require('./handlers');
 module.exports = () => [
   {
     method: 'POST',
-    path: '/login',
+    path: '/auth/login',
     handler: request => handlers.login(request),
     config: {
       tags: ['api', 'auth'],
@@ -20,7 +20,7 @@ module.exports = () => [
   },
   {
     method: 'GET',
-    path: '/decode',
+    path: '/auth/decode',
     handler: request => handlers.decode(request),
     config: {
       auth: 'jwt',

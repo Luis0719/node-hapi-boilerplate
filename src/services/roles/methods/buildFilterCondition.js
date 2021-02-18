@@ -1,11 +1,11 @@
 const { Op } = require('common').db;
 
-module.exports = params => {
+module.exports = query => {
   const where = {};
 
-  if (params.name) {
+  if (query.name) {
     where.name = {
-      [Op.like]: `%${params.name}%`,
+      [Op.like]: `%${query.name}%`,
     };
   }
 

@@ -8,7 +8,7 @@ const {
 const { getUserById } = require('../methods');
 
 module.exports = async ({ logger, params }) => {
-  const [error, user] = await to(getUserById(params.id));
+  const [error, user] = await to(getUserById({ id: params.id }));
 
   if (error) {
     logger.error(error);

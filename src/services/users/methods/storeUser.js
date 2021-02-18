@@ -1,4 +1,9 @@
 const { db } = require('common');
-const { Users } = db.models;
+const { User } = db.models;
 
-module.exports = data => Users.create(data);
+module.exports = async data => {
+  const user = new User(data);
+  await user.setPassword(data.password);
+
+  return user.save();
+}

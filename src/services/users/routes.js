@@ -4,7 +4,7 @@ const handlers = require('./handlers');
 module.exports = () => [
   {
     method: 'GET',
-    path: '/',
+    path: '/users',
     handler: request => handlers.getUsers(request),
     config: {
       tags: ['api', 'users'],
@@ -14,7 +14,7 @@ module.exports = () => [
   },
   {
     method: 'GET',
-    path: '/{id}',
+    path: '/users/{id}',
     handler: request => handlers.getUser(request),
     config: {
       tags: ['api', 'users'],
@@ -22,14 +22,14 @@ module.exports = () => [
       auth: 'jwt',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required(),
+          id: Joi.string().required(),
         }),
       },
     },
   },
   {
     method: 'POST',
-    path: '/',
+    path: '/users',
     handler: request => handlers.storeUser(request),
     config: {
       tags: ['api', 'users'],
@@ -53,7 +53,7 @@ module.exports = () => [
   },
   {
     method: 'PUT',
-    path: '/{id}',
+    path: '/users/{id}',
     handler: request => handlers.updateUser(request),
     config: {
       tags: ['api', 'users'],
@@ -79,7 +79,7 @@ module.exports = () => [
   },
   {
     method: 'DELETE',
-    path: '/{id}',
+    path: '/users/{id}',
     handler: request => handlers.deleteUser(request),
     config: {
       tags: ['api', 'users'],

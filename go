@@ -48,10 +48,7 @@ function helptext {
   echo "    nuke                    Remove all local resources related to this project."
   echo "    lint                    Lint the javascript code."
   echo "    test                    Run tests"
-  echo "    create-migration <name> Create new db migration"
   echo "    create-model <name>     Create new db model"
-  echo "    create-seed <name>      Create new db seed"
-  echo "    migrate                 Run db migrations"
   echo "    seed                    Run db seeds"
 }
 
@@ -65,7 +62,7 @@ function test {
 }
 
 function lint {
-  ${DC} run client yarn run lint
+  run_yarn lint
 }
 
 function init {
@@ -73,27 +70,13 @@ function init {
   ${DC} build
 }
 
-function migrate {
-  run_yarn migrate
-}
-
 function seed {
   run_yarn seed
-}
-
-function create-migration {
-  info "Creating $1 migration"
-  ${DC} run ${DEV_IMAGE} npx migration:create --name $1
 }
 
 function create-model {
   info "Creating $1 model"
   ${DC} run ${DEV_IMAGE} npx sequelize model:create --name $1
-}
-
-function create-seed {
-  info "Creating $1 seed"
-  ${DC} run ${DEV_IMAGE} npx sequelize seed:create --name $1
 }
 
 function start {
@@ -193,13 +176,7 @@ case "$1" in
     ;;
     lint) lint
     ;;
-    migrate) migrate $@
-    ;;
-    create-migration) create-migration $2
-    ;;
     create-model) create-model $2
-    ;;
-    create-seed) create-seed $2
     ;;
     seed) seed
     ;;

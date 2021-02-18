@@ -8,7 +8,7 @@ module.exports = {
     serializers: {
       req: req => ({
         url: `${req.method.toUpperCase()} ${req.url}`,
-        headers: req.headers,
+        // headers: req.headers,
       }),
       res: res => res.statusCode,
     },

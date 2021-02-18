@@ -1,4 +1,4 @@
 const { db } = require('common');
-const { Users } = db.models;
+const { User } = db.models;
 
-module.exports = options => Users.findAndCountAll(options);
+module.exports = ({filter={}, attributes, options}) => User.find(filter, attributes, options).exec();

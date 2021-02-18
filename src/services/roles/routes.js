@@ -4,17 +4,17 @@ const handlers = require('./handlers');
 module.exports = () => [
   {
     method: 'get',
-    path: '/',
+    path: '/roles',
     handler: request => handlers.getRoles(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Get list of all roles',
-      auth: 'jwt',
+      // auth: 'jwt',
     },
   },
   {
     method: 'get',
-    path: '/{id}',
+    path: '/roles/{id}',
     handler: request => handlers.getRole(request),
     config: {
       tags: ['api', 'roles'],
@@ -29,7 +29,7 @@ module.exports = () => [
   },
   {
     method: 'post',
-    path: '/',
+    path: '/roles',
     handler: request => handlers.storeRole(request),
     config: {
       tags: ['api', 'roles'],
@@ -45,7 +45,7 @@ module.exports = () => [
   },
   {
     method: 'put',
-    path: '/{id}',
+    path: '/roles/{id}',
     handler: request => handlers.updateRole(request),
     config: {
       tags: ['api', 'roles'],
@@ -69,7 +69,7 @@ module.exports = () => [
   },
   {
     method: 'delete',
-    path: '/{id}',
+    path: '/roles/{id}',
     handler: request => handlers.deleteRole(request),
     config: {
       tags: ['api', 'roles'],

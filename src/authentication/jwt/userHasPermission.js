@@ -1,14 +1,17 @@
-// const { db } = require('common');
-// const { Actions } = db.models;
+const _ = require('lodash');
 
 module.exports = async (request, user) => {
   const roles = user.roles;
-  // const requestInfo = request.route;
 
-  if (roles.includes('admin')) {
+  if (_.find(roles, {name: 'admin'} )) {
     return true;
   }
 
-  const roleAction = true;
-  return !!roleAction;
+  const { path, method } = request.route;
+  for (const role of roles) {
+    if (_.find(role.actions, { method, path }))
+      return true;
+  }
+
+  return false;
 };

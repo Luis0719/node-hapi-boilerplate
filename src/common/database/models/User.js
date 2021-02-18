@@ -19,6 +19,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+  },
   phone: {
     type: String,
   },
@@ -29,7 +32,7 @@ const UserSchema = new Schema({
     }
   ],
 }, {
-  timestamp: true
+  timestamps: true
 });
 
 UserSchema.methods.setPassword = async function(password) {

@@ -1,4 +1,4 @@
 const { db } = require('common');
-const { Users } = db.models;
+const { User } = db.models;
 
-module.exports = (id, options = {}) => Users.findByPk(id, options);
+module.exports = ({ id, attributes=null, options={} }) => User.findById(id, attributes, options).exec();

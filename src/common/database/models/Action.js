@@ -2,7 +2,7 @@
 const { Schema, model } = require('mongoose');
 
 const ActionSchema = new Schema({
-  uri: {
+  path: {
     type: String,
     required: true,
   },
@@ -16,7 +16,6 @@ const ActionSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
   },
 }, {
   timestamps: true,

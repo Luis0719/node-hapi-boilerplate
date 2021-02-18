@@ -9,8 +9,6 @@ const {
 const { storeUser } = require('../methods');
 
 module.exports = async ({ logger, payload }) => {
-  payload.password = await bcrypt.hash(payload.password);
-
   const [error, user] = await to(storeUser(payload));
 
   if (error) {

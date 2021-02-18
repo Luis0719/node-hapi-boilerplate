@@ -3,16 +3,16 @@ const {
     httpErrors: { InternalServer },
     functionalHelpers: { to },
     response: { representAsPaginated },
-    sequelize: { buildSequelizeOptions },
+    dbUtils: { buildOptions },
   },
 } = require('common');
 const { getRoles, buildFilterCondition } = require('../methods');
 
 module.exports = async ({ logger, query }) => {
-  const options = buildSequelizeOptions(query);
+  const options = buildOptions(query);
   options.where = buildFilterCondition(query);
 
-  const [error, roles] = await to(getRoles());
+  const [error, roles] = await to(getRoles(options));
 
   if (error) {
     logger.error(error);

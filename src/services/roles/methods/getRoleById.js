@@ -1,13 +1,5 @@
 const { db } = require('common');
-const { Roles, RoleActions } = db.models;
+const { Role } = db.models;
 
-module.exports = (id, options) =>
-  Roles.findByPk(id, {
-    ...options,
-    include: [
-      {
-        model: RoleActions,
-        attributes: ['id', 'action_id'],
-      },
-    ],
-  });
+module.exports = ({ id, attributes, options }) =>
+  Role.findById(id, attributes, options).exec();

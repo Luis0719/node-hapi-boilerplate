@@ -20,36 +20,36 @@ const clean = async () => {
 
 const seedActions = async () => {
   const buildRoute = path => {
-    return `/api/v1/${path}`;
+    return `/${path}`;
   };
 
   const users_actions_data = [
     {
-      uri: buildRoute('users'),
+      path: buildRoute('users'),
       method: 'get',
       name: 'Ver usuarios',
       description: 'Ver lista de todos los usuarios',
     },
     {
-      uri: buildRoute('users/{id}'),
+      path: buildRoute('users/{id}'),
       method: 'get',
       name: 'Ver usuario',
       description: 'Ver detalles de un usuario',
     },
     {
-      uri: buildRoute('users/store'),
+      path: buildRoute('users/store'),
       method: 'post',
       name: 'Crear usuario',
       description: 'Crear nuevo usuario',
     },
     {
-      uri: buildRoute('users/update/{id}'),
+      path: buildRoute('users/update/{id}'),
       method: 'update',
       name: 'Editar usuario',
       description: 'Actualizar unformación de un usuario',
     },
     {
-      uri: buildRoute('users/delete/{id}'),
+      path: buildRoute('users/delete/{id}'),
       method: 'delete',
       name: 'Eliminar usuario',
       description: 'Actualizar unformación de un usuario',
@@ -57,31 +57,31 @@ const seedActions = async () => {
   ];
   const roles_actions_data = [
     {
-      uri: buildRoute('roles'),
+      path: buildRoute('roles'),
       method: 'get',
       name: 'Ver roles',
       description: 'Ver lista de todos los roles',
     },
     {
-      uri: buildRoute('roles/{id}'),
+      path: buildRoute('roles/{id}'),
       method: 'get',
       name: 'Ver rol',
       description: 'Ver detalles de un rol',
     },
     {
-      uri: buildRoute('roles/store'),
+      path: buildRoute('roles/store'),
       method: 'post',
       name: 'Crear rol',
       description: 'Crear nuevo rol',
     },
     {
-      uri: buildRoute('roles/update/{id}'),
+      path: buildRoute('roles/update/{id}'),
       method: 'update',
       name: 'Editar rol',
       description: 'Actualizar unformación de un rol',
     },
     {
-      uri: buildRoute('roles/delete/{id}'),
+      path: buildRoute('roles/delete/{id}'),
       method: 'delete',
       name: 'Eliminar rol',
       description: 'Actualizar unformación de un rol',
@@ -126,22 +126,42 @@ const seedActionGroups = async ({users_actions, roles_actions}) => {
   }
 }
 
-const seedRoles = async () => {
+const seedRoles = async ({users_actions, roles_actions}) => {
   const admin_role = new Role({name: 'admin'});
-  await admin_role.save();
+  const guest_role = new Role({
+    name: 'guest',
+    actions: [
+      users_actions[0],
+      roles_actions[0],
+    ]
+  });
+
+  await P.all([
+    admin_role.save(),
+    guest_role.save(),
+  ]);
 
   return {
     admin_role,
+    guest_role,
   }
 }
 
-const seedUsers = async ({ admin_role }) => {
+const seedUsers = async ({ admin_role, guest_role }) => {
   const admin_user = new User({first_name: 'admin', last_name: 'dpc', username: 'admin', roles: [admin_role.id]});
   await admin_user.setPassword('admin');
-  await admin_user.save();
+
+  const guest_user = new User({first_name: 'guest', last_name: 'dpc', username: 'guest', roles: [guest_role.id]});
+  await guest_user.setPassword('guest');
+
+  await P.all([
+    admin_user.save(),
+    guest_user.save(),
+  ]);
 
   return {
-    admin_user
+    admin_user,
+    guest_user,
   }
 }
 
@@ -149,8 +169,8 @@ const seed = async () => {
   db.connect();
   await clean();
 
-  const roles = await seedRoles();
   const actions = await seedActions();
+  const roles = await seedRoles(actions);
   await seedUsers(roles);
   await seedActionGroups(actions);
 }

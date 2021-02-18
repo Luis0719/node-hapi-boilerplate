@@ -13,7 +13,7 @@ const RoleSchema = new Schema({
     }
   ]
 }, {
-  timestamp: true
+  timestamps: true
 });
 
 module.exports = model('Role', RoleSchema);

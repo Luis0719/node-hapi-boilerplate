@@ -24,7 +24,21 @@ module.exports = {
       throw Unauthorized('Expired token');
     }
 
-    const user = await getUserById(payload.id, { raw: true });
+    const user = await getUserById({
+      id: payload.id,
+      attributes: ['first_name', 'last_name', 'roles', 'email', 'created_at'],
+      options: {
+        lean: true,
+        populate: {
+          path: 'roles',
+          select: ['id', 'name', 'actions'],
+          populate: {
+            path: 'actions',
+            select: ['id', 'path', 'method'],
+          },
+        },
+      }
+    });
 
     if (!user || !(await userHasPermission(request, user))) {
       throw Unauthorized();

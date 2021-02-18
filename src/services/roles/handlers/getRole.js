@@ -8,7 +8,7 @@ const {
 const { getRoleById } = require('../methods');
 
 module.exports = async ({ logger, params }) => {
-  const [error, role] = await to(getRoleById(params.id));
+  const [error, role] = await to(getRoleById({ id: params.id }));
 
   if (error) {
     logger.error(error);

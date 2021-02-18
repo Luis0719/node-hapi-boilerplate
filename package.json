@@ -9,10 +9,8 @@
     "watch": "nodemon src/app.js",
     "test": "APP_ENV=test mocha test/**/*.spec.js",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
-    "migrate": "npx sequelize-cli db:migrate",
-    "unmigrate": "npx sequelize-cli db:migrate:undo",
-    "seed": "npx sequelize-cli db:seed:all",
-    "unseed": "npx sequelize-cli db:seed:undo"
+    "seed": "node scripts/dev/seedDB.js",
+    "unseed": ""
   },
   "repository": {
     "type": "git",
