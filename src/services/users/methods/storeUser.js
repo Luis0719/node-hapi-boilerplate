@@ -6,4 +6,4 @@ module.exports = async data => {
   await user.setPassword(data.password);
 
   return user.save();
-}
+};

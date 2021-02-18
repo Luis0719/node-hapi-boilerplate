@@ -2,44 +2,47 @@
 const { Schema, model } = require('mongoose');
 const { bcrypt } = require('../../utils');
 
-const UserSchema = new Schema({
-  first_name: {
-    type: String,
-    required: true,
+const UserSchema = new Schema(
+  {
+    first_name: {
+      type: String,
+      required: true,
+    },
+    last_name: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    roles: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
+      },
+    ],
   },
-  last_name: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-  },
-  phone: {
-    type: String,
-  },
-  roles: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Role',
-    }
-  ],
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
-UserSchema.methods.setPassword = async function(password) {
+UserSchema.methods.setPassword = async function (password) {
   this.password = await bcrypt.hash(password);
 };
 
-UserSchema.methods.getFullName = function() {
+UserSchema.methods.getFullName = function () {
   return `${this.firstName} ${this.lastName}`;
 };
 

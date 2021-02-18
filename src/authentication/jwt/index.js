@@ -37,7 +37,7 @@ module.exports = {
             select: ['id', 'path', 'method'],
           },
         },
-      }
+      },
     });
 
     if (!user || !(await userHasPermission(request, user))) {

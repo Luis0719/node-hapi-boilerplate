@@ -4,4 +4,4 @@ module.exports = () => [
   require('./swagger'),
   require('./logging'),
   ...require('./APIs')(),
-]
+];

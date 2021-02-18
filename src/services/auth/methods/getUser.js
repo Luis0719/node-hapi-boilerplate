@@ -3,5 +3,5 @@ const { User } = db.models;
 
 module.exports = username =>
   User.findOne({
-    username
+    username,
   }).exec();
