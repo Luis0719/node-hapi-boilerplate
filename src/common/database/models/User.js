@@ -1,34 +1,43 @@
 'use strict';
-const { DataTypes } = require('sequelize');
+const { Schema, model } = require('mongoose');
 const { bcrypt } = require('../../utils');
 
-module.exports = sequelize => {
-  const Users = sequelize.define(
-    'Users',
+const UserSchema = new Schema({
+  first_name: {
+    type: String,
+    required: true,
+  },
+  last_name: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+  },
+  roles: [
     {
-      first_name: DataTypes.STRING,
-      last_name: DataTypes.STRING,
-      image: DataTypes.STRING,
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      email: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      roles: DataTypes.ARRAY(DataTypes.STRING),
-    },
-    {
-      tableName: 'users',
+      type: Schema.Types.ObjectId,
+      ref: 'Role',
     }
-  );
+  ],
+}, {
+  timestamp: true
+});
 
-  Users.associate = models => {};
-
-  Users.prototype.setPassword = async password => {
-    this.password = await bcrypt.hash(password);
-  };
-
-  Users.prototype.getFullName = () => {
-    return `${this.firstName} ${this.lastName}`;
-  };
-
-  return Users;
+UserSchema.methods.setPassword = async function(password) {
+  this.password = await bcrypt.hash(password);
 };
+
+UserSchema.methods.getFullName = function() {
+  return `${this.firstName} ${this.lastName}`;
+};
+
+module.exports = model('User', UserSchema);

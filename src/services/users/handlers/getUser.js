@@ -19,8 +19,5 @@ module.exports = async ({ logger, params }) => {
     throw NotFound();
   }
 
-  logger.info(user);
-  logger.info(user.created_at);
-
   return representAs('user')(user);
 };
