@@ -6,13 +6,13 @@ const userHasPermission = require('./userHasPermission');
 
 const { Unauthorized } = httpErrors;
 
-const authorizedCredentials = credentials => ({ isValid: true, credentials });
-const isTokenExpired = expiresAt =>
+const authorizedCredentials = (credentials) => ({ isValid: true, credentials });
+const isTokenExpired = (expiresAt) =>
   DateTime.fromISO(expiresAt) < DateTime.local();
 
 module.exports = {
   secretOrPrivateKey: jwt.secretOrPrivateKey,
-  getToken: request => {
+  getToken: (request) => {
     return request.headers.authorization;
   },
   validate: async (request, payload, h) => {

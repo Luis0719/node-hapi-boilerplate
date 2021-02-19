@@ -1,6 +1,6 @@
 const { Op } = require('common').db;
 
-module.exports = query => {
+module.exports = (query) => {
   const where = {};
 
   if (query.name) {

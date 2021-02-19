@@ -1,5 +1,5 @@
 module.exports = {
-  init: J => {
+  init: (J) => {
     J.define('user', [
       J.Field('id'),
       J.Field('first_name'),

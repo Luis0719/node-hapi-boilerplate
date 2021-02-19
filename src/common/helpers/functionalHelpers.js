@@ -1,7 +1,7 @@
 const to = (promise, enhanceError) => {
   return promise
-    .then(data => [null, data])
-    .catch(e => {
+    .then((data) => [null, data])
+    .catch((e) => {
       Object.assign(e, enhanceError);
 
       return [e, null];

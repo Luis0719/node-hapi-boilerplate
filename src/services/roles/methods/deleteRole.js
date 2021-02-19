@@ -3,7 +3,7 @@ const getRoleById = require('./getRoleById');
 
 const { RoleActions } = db.models;
 
-module.exports = async id => {
+module.exports = async (id) => {
   const role = await getRoleById(id);
 
   if (!role) {

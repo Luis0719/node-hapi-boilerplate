@@ -5,7 +5,7 @@ module.exports = () => [
   {
     method: 'GET',
     path: '/users',
-    handler: request => handlers.getUsers(request),
+    handler: (request) => handlers.getUsers(request),
     config: {
       tags: ['api', 'users'],
       description: 'Get list of all users',
@@ -15,7 +15,7 @@ module.exports = () => [
   {
     method: 'GET',
     path: '/users/{id}',
-    handler: request => handlers.getUser(request),
+    handler: (request) => handlers.getUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Get user by id',
@@ -30,7 +30,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/users',
-    handler: request => handlers.storeUser(request),
+    handler: (request) => handlers.storeUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Store new user',
@@ -54,7 +54,7 @@ module.exports = () => [
   {
     method: 'PUT',
     path: '/users/{id}',
-    handler: request => handlers.updateUser(request),
+    handler: (request) => handlers.updateUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Update user by id',
@@ -80,7 +80,7 @@ module.exports = () => [
   {
     method: 'DELETE',
     path: '/users/{id}',
-    handler: request => handlers.deleteUser(request),
+    handler: (request) => handlers.deleteUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Delete user by id',

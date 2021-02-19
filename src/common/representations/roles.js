@@ -1,5 +1,5 @@
 module.exports = {
-  init: J => {
+  init: (J) => {
     J.define('role', [
       J.Field('id'),
       J.Field('name'),

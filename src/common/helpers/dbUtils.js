@@ -1,4 +1,4 @@
-const buildOptions = params => {
+const buildOptions = (params) => {
   const options = {};
 
   if (params.sortBy) {

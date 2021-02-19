@@ -2,7 +2,7 @@ const { promisify } = require('util');
 const jiggler = require('jiggler');
 
 const representAs = (rep, options) => {
-  return async data => {
+  return async (data) => {
     if (typeof jiggler.as[rep] !== 'function') {
       throw new Error(`Could not find '${rep}' representation`);
     }
@@ -12,7 +12,7 @@ const representAs = (rep, options) => {
 };
 
 const representAsPaginated = (rep, options) => {
-  return async data => {
+  return async (data) => {
     let items;
     let totalItems;
 

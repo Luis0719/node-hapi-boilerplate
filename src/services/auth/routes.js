@@ -5,7 +5,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/auth/login',
-    handler: request => handlers.login(request),
+    handler: (request) => handlers.login(request),
     config: {
       tags: ['api', 'auth'],
       description: 'Authenticate user and return JWT',
@@ -21,7 +21,7 @@ module.exports = () => [
   {
     method: 'GET',
     path: '/auth/decode',
-    handler: request => handlers.decode(request),
+    handler: (request) => handlers.decode(request),
     config: {
       auth: 'jwt',
       tags: ['api', 'auth'],

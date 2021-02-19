@@ -1,7 +1,7 @@
 const services = ['auth', 'users', 'roles'];
 
 module.exports = () => {
-  const buildServicePlugin = service => ({
+  const buildServicePlugin = (service) => ({
     plugin: require(`../services/${service}`),
     routes: {
       prefix: `/api/${service}`,

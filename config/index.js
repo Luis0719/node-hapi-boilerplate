@@ -22,7 +22,7 @@ const cors = {
 const apiService = {
   accessToken: process.env.SERVICE_SECRET,
   accessTokenName: 'access_token',
-  allowQueryToken: true
+  allowQueryToken: false
 }
 
 const jwt = {

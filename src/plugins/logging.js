@@ -6,11 +6,11 @@ module.exports = {
     prettyPrint: process.env.NODE_ENV !== 'production',
     redact: ['req.headers.authorization'], // Protect sensitive data
     serializers: {
-      req: req => ({
+      req: (req) => ({
         url: `${req.method.toUpperCase()} ${req.url}`,
-        // headers: req.headers,
+        headers: req.headers,
       }),
-      res: res => res.statusCode,
+      res: (res) => res.statusCode,
     },
   },
 };

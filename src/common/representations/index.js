@@ -1,7 +1,7 @@
 const requireDirectory = require('require-directory');
 
 module.exports = {
-  init: J => {
+  init: (J) => {
     const representations = requireDirectory(module);
 
     for (const key in representations) {

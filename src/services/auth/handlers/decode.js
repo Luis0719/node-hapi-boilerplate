@@ -1,3 +1,3 @@
-module.exports = request => {
+module.exports = (request) => {
   return request.auth.credentials;
 };

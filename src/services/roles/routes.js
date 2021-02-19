@@ -5,7 +5,7 @@ module.exports = () => [
   {
     method: 'get',
     path: '/roles',
-    handler: request => handlers.getRoles(request),
+    handler: (request) => handlers.getRoles(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Get list of all roles',
@@ -15,7 +15,7 @@ module.exports = () => [
   {
     method: 'get',
     path: '/roles/{id}',
-    handler: request => handlers.getRole(request),
+    handler: (request) => handlers.getRole(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Get role by ID',
@@ -30,7 +30,7 @@ module.exports = () => [
   {
     method: 'post',
     path: '/roles',
-    handler: request => handlers.storeRole(request),
+    handler: (request) => handlers.storeRole(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Create a new role',
@@ -46,7 +46,7 @@ module.exports = () => [
   {
     method: 'put',
     path: '/roles/{id}',
-    handler: request => handlers.updateRole(request),
+    handler: (request) => handlers.updateRole(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Update role',
@@ -70,7 +70,7 @@ module.exports = () => [
   {
     method: 'delete',
     path: '/roles/{id}',
-    handler: request => handlers.deleteRole(request),
+    handler: (request) => handlers.deleteRole(request),
     config: {
       tags: ['api', 'roles'],
       description: 'Delete role',

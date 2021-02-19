@@ -21,7 +21,7 @@ const assignActions = async (role, actions) => {
   if (actions.length === 0) return;
 
   const actionIds = map(actions, 'action_id');
-  return P.map(actionIds, async action_id =>
+  return P.map(actionIds, async (action_id) =>
     RoleActions.create({
       role,
       action_id,

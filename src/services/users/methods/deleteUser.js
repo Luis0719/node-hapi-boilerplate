@@ -1,6 +1,6 @@
 const getUserById = require('./getUserById');
 
-module.exports = async id => {
+module.exports = async (id) => {
   const user = await getUserById({ id });
 
   if (!user) {

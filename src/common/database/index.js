@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { connectionUri, options } = require('./config');
 
-const connect = logger => {
-  mongoose.connect(connectionUri, options, err => {
+const connect = (logger) => {
+  mongoose.connect(connectionUri, options, (err) => {
     if (err) {
       throw err;
     }

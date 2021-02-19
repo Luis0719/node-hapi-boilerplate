@@ -1,5 +1,6 @@
 {
   "recursive": true,
   "bail": true,
-  "require": "./test/init.js"
+  "require": "./test/init.js",
+  "timeout": 4000
 }
