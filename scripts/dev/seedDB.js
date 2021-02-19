@@ -1,4 +1,3 @@
-require('dotenv').config({ path: `config/${process.env.APP_ENV}.env` });
 const P = require('bluebird');
 const mongoose = require('mongoose');
 const { db } = require('common');
