@@ -1,9 +1,9 @@
-const { db } = require('../../../testCommon');
-const { login } = require('../../../../src/services/auth/methods');
+const { db } = require('../../testCommon');
+const { login } = require('../../../src/services/auth/handlers');
 
 const { factories, initDatabase } = db;
 
-describe('#auth/login method', function () {
+describe('#auth handlers', function () {
   let user;
 
   before(async function () {
