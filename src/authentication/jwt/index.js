@@ -6,6 +6,8 @@ const userHasPermission = require('./userHasPermission');
 const { Unauthorized } = httpErrors;
 
 const authorizedCredentials = (credentials) => ({ isValid: true, credentials });
+const unauthorizedCredentials = () => ({ isValid: false });
+
 module.exports = {
   keys: jwt.secretKey,
   verify: jwt.verify,
@@ -33,7 +35,7 @@ module.exports = {
     });
 
     if (!user || !(await userHasPermission(request, user))) {
-      throw Unauthorized();
+      throw Unauthorized('User not authorized');
     }
 
     return authorizedCredentials(user);

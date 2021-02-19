@@ -24,10 +24,9 @@ class Factory {
   }
 }
 
-const getFactories = () => {
-  const buildFactory = (obj) => new Factory(obj);
+const buildFactory = (obj) => new Factory(obj);
 
-  return requireDir(module, {visit: buildFactory});
-}
+const getFactories = () =>
+  requireDir(module, {visit: buildFactory});
 
 module.exports = getFactories();
