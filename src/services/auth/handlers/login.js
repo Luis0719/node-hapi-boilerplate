@@ -13,7 +13,7 @@ module.exports = async ({ logger, payload }) => {
   }
 
   if (!token) {
-    throw Unauthorized('Usuario o contraseña incorrectos');
+    throw Unauthorized('Invalid user or password');
   }
 
   return JSON.stringify({ token });

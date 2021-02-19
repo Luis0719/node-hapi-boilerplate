@@ -1,9 +1,9 @@
-const { db } = require('../../../testCommon');
-const { getUser, login } = require('../../../../src/services/auth/methods');
+const { db } = require('../../testCommon');
+const { getUser, login } = require('../../../src/services/auth/methods');
 
 const { factories, initDatabase } = db;
 
-describe('#auth methods', function() {
+describe('#auth methods', function () {
   let user;
 
   before(async function () {
@@ -24,7 +24,7 @@ describe('#auth methods', function() {
     });
   });
 
-  describe('#login', function() {
+  describe('#login', function () {
     it('should return false for unexisting user', async function () {
       const result = await login('ghost', 'pass');
       expect(result).to.be.false;
@@ -40,4 +40,4 @@ describe('#auth methods', function() {
       expect(result).to.be.a('string');
     });
   });
-})
+});
