@@ -7,7 +7,7 @@ module.exports = {
   options: {
     prettyPrint: process.env.NODE_ENV !== 'production',
     redact:
-      process.env.NODE_ENV !== 'production'
+      process.env.NODE_ENV === 'production'
         ? ['req.headers.authorization']
         : [], // Protect sensitive data
     logPayload: process.env.NODE_ENV !== 'production',

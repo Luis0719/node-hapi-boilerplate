@@ -4,8 +4,8 @@ const createTestServer = () => {
   return require('../../src/app');
 };
 
-const getTestServer = () => {
-  if (!testServer) testServer = createTestServer();
+const getTestServer = async () => {
+  if (!testServer) testServer = await createTestServer();
 
   return testServer;
 };
