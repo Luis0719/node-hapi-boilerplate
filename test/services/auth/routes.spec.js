@@ -1,27 +1,38 @@
+const sinon = require('sinon');
+
+const handlers = require('../../../src/services/auth/handlers');
 const { db, utils, testServer } = require('../../testCommon');
 
-const { factories, initDatabase } = db;
+const { initDatabase } = db;
 
 describe('#auth routes', function () {
   let serverInject;
   let authorizedHeaders;
-  let user;
 
   before(async function () {
     await initDatabase();
 
     serverInject = utils.buildServerInjecter(await testServer.getTestServer());
     authorizedHeaders = utils.buildAuthorizedHeaders();
-    user = await factories.User.create({ password: 'pass' });
   });
 
   describe('POST /login', function () {
     let route;
+    let loginStub;
+
     before(function () {
       route = {
         url: '/api/auth/login',
         method: 'POST',
       };
+    });
+
+    beforeEach(function () {
+      loginStub = sinon.stub(handlers, 'login').callsFake(async () => ({}));
+    });
+
+    afterEach(function () {
+      loginStub.restore();
     });
 
     it('should fail if unathorized', async function () {
@@ -56,7 +67,7 @@ describe('#auth routes', function () {
 
     it('should pass with valid payload and valid user', async function () {
       const payload = {
-        username: user.username,
+        username: 'test',
         password: 'pass',
       };
 
