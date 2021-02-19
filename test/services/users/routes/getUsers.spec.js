@@ -8,7 +8,7 @@ describe('GET /', function () {
     server = await testServer.getTestServer();
   });
 
-  it('responds with 200', async function () {
+  it('responds with 200', async function() {
     const res = await server.inject({
       method: 'get',
       url: '/',
@@ -17,7 +17,7 @@ describe('GET /', function () {
     expect(res.statusCode).to.equal(200);
   });
 
-  it('responds with 401', async function () {
+  it('responds with 401', async function() {
     const res = await server.inject({
       method: 'get',
       url: '/api/users',

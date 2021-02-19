@@ -19,20 +19,18 @@
   },
   "rules": {
     "no-console": "error",
-    "mocha/no-exclusive-tests": 2,
-    "no-unused-vars": [
-      1,
-      {
-        "args": "none"
-      }
-    ],
+    "mocha/no-exclusive-tests": "error",
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "comma-dangle": ["error", "only-multiline"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "no-await-in-loop": "warn",
+    "brace-style": ["error", "1tbs"],
+    "block-spacing": ["error", "always"],
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
     "mocha/no-top-level-hooks": "off",
     "mocha/no-hooks-for-single-case": "off",
-    "mocha/no-setup-in-describe": "off",
-    "comma-dangle": [
-      "error",
-      "only-multiline"
-    ]
+    "mocha/no-setup-in-describe": "off"
   },
   "globals": {
     "expect": "readonly"
