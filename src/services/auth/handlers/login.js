@@ -4,11 +4,9 @@ const { to } = helpers.functionalHelpers;
 
 const { login } = require('../methods');
 
-module.exports = async ({ logger, payload, server }) => {
-  const tokenizer = server.methods.jwtSign;
-
+module.exports = async ({ logger, payload }) => {
   const [error, token] = await to(
-    login(tokenizer, payload.username, payload.password)
+    login(payload.username, payload.password)
   );
 
   if (error) {

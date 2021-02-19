@@ -1,10 +1,11 @@
 const { jwt: config } = require('config');
-const { DateTime } = require('luxon');
+const Jwt = require('@hapi/jwt');
 const { utils } = require('common');
 const { bcrypt } = utils;
 const getUser = require('./getUser');
 
-module.exports = async (tokenizer, username, password) => {
+module.exports = async (username, password) => {
+
   const user = await getUser(username);
   if (!user) {
     return false;
@@ -15,9 +16,9 @@ module.exports = async (tokenizer, username, password) => {
     return false;
   }
 
-  return tokenizer({
+  return Jwt.token.generate({
     id: user.id,
-    roles: user.roles,
-    expiresAt: DateTime.local().plus({ seconds: config.ttl }),
+  }, {
+    key: config.secretKey
   });
 };

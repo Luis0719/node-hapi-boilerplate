@@ -26,8 +26,14 @@ const apiService = {
 }
 
 const jwt = {
-  secretOrPrivateKey: process.env.JWT_SECRET,
-  ttl: 24 * 60 * 60 // Time to live in seconds. Default: 1 day
+  secretKey: process.env.JWT_SECRET,
+  verify: {
+    aud: process.env.JWT_AUD || false,
+    iss: process.env.JWT_ISS || false,
+    sub: process.env.JWT_SUB || false,
+    exp: true,
+    maxAgeSec: 24 * 60 * 60 // Time to live in seconds. Default: 1 day,
+  }
 }
 
 const bcrypt = {

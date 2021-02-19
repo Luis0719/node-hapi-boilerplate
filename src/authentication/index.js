@@ -11,6 +11,6 @@ module.exports = async (server) => {
     basicToken(config.apiService)
   );
 
-  await server.register(require('hapi-jsonwebtoken').plugin);
-  server.auth.strategy('jwt', 'hapi-jsonwebtoken', JWTService);
+  await server.register(require('@hapi/jwt'));
+  server.auth.strategy('jwt', 'jwt', JWTService);
 };
