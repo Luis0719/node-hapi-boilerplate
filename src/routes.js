@@ -3,7 +3,7 @@ const pkg = require('../package.json');
 module.exports = [
   {
     method: 'GET',
-    path: '/',
+    path: '/ping',
     handler: () => {
       return {
         service: pkg.name,
