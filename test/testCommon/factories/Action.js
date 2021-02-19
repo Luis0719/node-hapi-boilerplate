@@ -10,4 +10,4 @@ const defaultValues = {
 module.exports = {
   Model: Action,
   defaultValues,
-}
+};

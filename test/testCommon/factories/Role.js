@@ -9,4 +9,4 @@ const defaultValues = {
 module.exports = {
   Model: Role,
   defaultValues,
-}
+};

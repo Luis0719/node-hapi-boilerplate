@@ -5,7 +5,6 @@ const { bcrypt } = utils;
 const getUser = require('./getUser');
 
 module.exports = async (username, password) => {
-
   const user = await getUser(username);
   if (!user) {
     return false;
@@ -16,9 +15,12 @@ module.exports = async (username, password) => {
     return false;
   }
 
-  return Jwt.token.generate({
-    id: user.id,
-  }, {
-    key: config.secretKey
-  });
+  return Jwt.token.generate(
+    {
+      id: user.id,
+    },
+    {
+      key: config.secretKey,
+    }
+  );
 };

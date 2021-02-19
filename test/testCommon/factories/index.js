@@ -7,18 +7,16 @@ class Factory {
     this.hooks = hooks;
   }
 
-  async create (values) {
+  async create(values) {
     const finalValues = Object.assign(this.defaultValues, values);
     const model = new this.Model(finalValues);
 
     const { preSave, postSave } = this.hooks;
-    if (preSave)
-      await preSave(model);
+    if (preSave) await preSave(model);
 
     await model.save();
 
-    if (postSave)
-      await postSave(model);
+    if (postSave) await postSave(model);
 
     return model;
   }
@@ -26,7 +24,6 @@ class Factory {
 
 const buildFactory = (obj) => new Factory(obj);
 
-const getFactories = () =>
-  requireDir(module, {visit: buildFactory});
+const getFactories = () => requireDir(module, { visit: buildFactory });
 
 module.exports = getFactories();

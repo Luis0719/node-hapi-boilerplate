@@ -5,7 +5,6 @@ const chai = require('chai');
 chai.use(require('chai-as-promised'));
 global.expect = chai.expect;
 
-
 const { testServer } = require('./testCommon');
 console.log('Creating test server'); // eslint-disable-line no-console
 testServer.createTestServer().then(() => {
