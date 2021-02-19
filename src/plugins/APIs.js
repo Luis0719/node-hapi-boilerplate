@@ -4,7 +4,7 @@ module.exports = () => {
   const buildServicePlugin = (service) => ({
     plugin: require(`../services/${service}`),
     routes: {
-      prefix: `/api/${service}`,
+      prefix: `/api`,
     },
   });
 
