@@ -1,0 +1,5 @@
+{
+  "recursive": true,
+  "bail": true,
+  "require": "./test/init.js"
+}

@@ -1,3 +1,3 @@
 module.exports = {
-  createTestServer: require('./createTestServer'),
+  testServer: require('./testServer'),
 };

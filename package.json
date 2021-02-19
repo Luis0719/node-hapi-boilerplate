@@ -7,7 +7,7 @@
     "start:dev": "yarn watch",
     "start:prod": "node src/app.js",
     "watch": "nodemon src/app.js",
-    "test": "APP_ENV=test mocha test/**/*.spec.js",
+    "test": "mocha test/**/*.spec.js",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
     "seed": "node scripts/dev/seedDB.js",
     "unseed": ""
