@@ -1,6 +1,8 @@
 const P = require('bluebird');
 const mongoose = require('mongoose');
-const { utils: { bcrypt } } = require('common');
+const {
+  utils: { bcrypt },
+} = require('common');
 const { db, utils } = require('../../testCommon');
 const {
   buildFilterCondition,
@@ -35,10 +37,7 @@ describe('#users methods', function () {
 
     it('should generate roles filter', async function () {
       const query = {
-        roles: [
-          mongoose.Types.ObjectId(),
-          mongoose.Types.ObjectId(),
-        ],
+        roles: [mongoose.Types.ObjectId(), mongoose.Types.ObjectId()],
       };
       const result = await buildFilterCondition(query);
       expect(result.roles).to.exist;
@@ -156,7 +155,9 @@ describe('#users methods', function () {
 
         expect(result.length).to.be.equal(users.length);
         for (let i = 0; i < result.length - 1; i++) {
-          expect(result[i].createdAt).to.beforeOrEqualTime(result[i + 1].createdAt);
+          expect(result[i].createdAt).to.beforeOrEqualTime(
+            result[i + 1].createdAt
+          );
         }
       });
 
@@ -168,7 +169,9 @@ describe('#users methods', function () {
 
         expect(result.length).to.be.equal(users.length);
         for (let i = 0; i < result.length - 1; i++) {
-          expect(result[i].createdAt).to.afterOrEqualTime(result[i + 1].createdAt);
+          expect(result[i].createdAt).to.afterOrEqualTime(
+            result[i + 1].createdAt
+          );
         }
       });
     });
@@ -351,39 +354,39 @@ describe('#users methods', function () {
   describe('#updateUser', function () {
     let user;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       await initDatabase();
 
       user = await factories.User.create();
     });
 
-    after(async function() {
+    after(async function () {
       await initDatabase();
     });
 
-    it('should update user with happy path', async function() {
+    it('should update user with happy path', async function () {
       const newData = {
         first_name: 'newname',
         last_name: 'newlast',
         username: 'newusername',
         image: 'newImage.svg',
         phone: '3399998888',
-        roles: [mongoose.Types.ObjectId()]
-      }
+        roles: [mongoose.Types.ObjectId()],
+      };
 
       await updateUser(user.id, newData);
-      const updatedUser = await User.findById(user.id, null, {lean: true}); // reload user from the db to make sure it wan't updated only locally
+      const updatedUser = await User.findById(user.id, null, { lean: true }); // reload user from the db to make sure it wan't updated only locally
 
       expect(updatedUser).to.have.deep.include(newData);
       expect(updatedUser.password).to.equal(user.password); // Password must not have been updated
     });
 
-    it('should fail if trying to set duplicated username', async function() {
+    it('should fail if trying to set duplicated username', async function () {
       await factories.User.create({ username: 'duplicated' });
 
       const newData = {
         username: 'duplicated',
-      }
+      };
 
       await expect(updateUser(user.id, newData)).to.be.rejectedWith(/username/);
     });
@@ -400,7 +403,7 @@ describe('#users methods', function () {
       expect(deletedUser).to.not.exist;
     });
 
-    it('should return null if user is not found', async function() {
+    it('should return null if user is not found', async function () {
       const result = await deleteUser(mongoose.Types.ObjectId());
 
       expect(result).to.be.null;
@@ -410,13 +413,13 @@ describe('#users methods', function () {
   describe('#setEmail', function () {
     let user;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       await initDatabase();
 
       user = await factories.User.create();
     });
 
-    after(async function() {
+    after(async function () {
       await initDatabase();
     });
 
@@ -429,8 +432,11 @@ describe('#users methods', function () {
       expect(updatedUser.email).to.be.equal(newEmail);
     });
 
-    it('should return null if user is not found', async function() {
-      const result = await setEmail(mongoose.Types.ObjectId(), 'email@example.com');
+    it('should return null if user is not found', async function () {
+      const result = await setEmail(
+        mongoose.Types.ObjectId(),
+        'email@example.com'
+      );
 
       expect(result).to.be.null;
     });
@@ -439,13 +445,13 @@ describe('#users methods', function () {
   describe('#resetPassword', function () {
     let user;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       await initDatabase();
 
       user = await factories.User.create();
     });
 
-    after(async function() {
+    after(async function () {
       await initDatabase();
     });
 
@@ -455,11 +461,14 @@ describe('#users methods', function () {
       expect(result).to.be.true;
 
       const updatedUser = await User.findById(user.id);
-      const isSamePassword = await bcrypt.compare(newPassword, updatedUser.password);
+      const isSamePassword = await bcrypt.compare(
+        newPassword,
+        updatedUser.password
+      );
       expect(isSamePassword).to.be.true;
     });
 
-    it('should return false if user is not found', async function() {
+    it('should return false if user is not found', async function () {
       const result = await resetPassword(mongoose.Types.ObjectId(), 'newPass');
 
       expect(result).to.be.false;
