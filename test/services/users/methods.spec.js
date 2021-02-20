@@ -259,4 +259,89 @@ describe('#users methods', function () {
       expect(result.createdAt).to.not.exist;
     });
   });
+
+  describe('#storeUser', function () {
+    let admin_role;
+
+    beforeEach(async function () {
+      await initDatabase();
+
+      admin_role = await factories.Role.create({ name: 'admin' });
+    });
+
+    after(async function () {
+      await initDatabase();
+    });
+
+    it('should store with happy path (only required params)', async function () {
+      const data = {
+        first_name: 'test',
+        last_name: 'testLn',
+        username: 'testUn',
+        password: 'testPw',
+      };
+
+      const result = await storeUser(data);
+      expect(result).to.exist;
+      expect(result.first_name).to.be.equal(data.first_name);
+      expect(result.last_name).to.be.equal(data.last_name);
+      expect(result.username).to.be.equal(data.username);
+      expect(result.password).to.exist;
+      expect(result.password).to.not.be.equal(data.password); // password must be encrypted
+      expect(result.roles).to.be.a('array');
+    });
+
+    it('should store with happy path (with optional params)', async function () {
+      const data = {
+        first_name: 'test',
+        last_name: 'testLn',
+        username: 'testUn',
+        password: 'testPw',
+        email: 'test@example',
+        phone: '3311112222',
+        image: 'myimage.svg',
+        roles: [admin_role.id],
+      };
+
+      const result = await storeUser(data);
+      expect(result).to.exist;
+      expect(result.email).to.be.equal(data.email);
+      expect(result.phone).to.be.equal(data.phone);
+      expect(result.image).to.be.equal(data.image);
+      expect(result.roles.length).to.be.equal(1);
+      expect(result.roles[0].toString()).to.be.equal(admin_role.id);
+    });
+
+    it('should not store duplicate username', async function () {
+      const data = factories.User.getDefaultValues();
+
+      await storeUser(data);
+      await expect(storeUser(data)).to.be.rejectedWith(/username/);
+    });
+
+    it('should not store duplicate email', async function () {
+      const defaultData = factories.User.getDefaultValues();
+      const data1 = Object.assign({}, defaultData, {
+        username: 'test1',
+        email: 'test@email.com',
+      });
+      const data2 = Object.assign({}, defaultData, {
+        username: 'test2',
+        email: 'test@email.com',
+      });
+
+      await storeUser(data1);
+      await expect(storeUser(data2)).to.be.rejectedWith(/email/);
+    });
+
+    it('should allow duplicated emails if null', async function () {
+      const defaultData = factories.User.getDefaultValues();
+      const data1 = Object.assign({}, defaultData, { username: 'test1' });
+      const data2 = Object.assign({}, defaultData, { username: 'test2' });
+
+      await storeUser(data1);
+      const result = await storeUser(data2);
+      expect(result).to.exist;
+    });
+  });
 });

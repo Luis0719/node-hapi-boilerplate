@@ -23,8 +23,12 @@ const UserSchema = new Schema(
     },
     email: {
       type: String,
+      index: { unique: true, sparse: true }, // sparse will allow duplicate 'null' values
     },
     phone: {
+      type: String,
+    },
+    image: {
       type: String,
     },
     roles: [
@@ -38,6 +42,10 @@ const UserSchema = new Schema(
     timestamps: true,
   }
 );
+
+UserSchema.pre('save', async function () {
+  if (this.isNew) await this.setPassword(this.password);
+});
 
 UserSchema.virtual('full_name').get(function () {
   return `${this.first_name} ${this.last_name}`;

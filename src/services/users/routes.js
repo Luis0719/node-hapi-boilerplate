@@ -67,7 +67,6 @@ module.exports = () => [
           first_name: Joi.string().max(60).required(),
           last_name: Joi.string().max(60).required(),
           image: Joi.string(),
-          username: Joi.string().required(),
           email: Joi.string()
             .max(50)
             .email({ tlds: { allow: false } }),

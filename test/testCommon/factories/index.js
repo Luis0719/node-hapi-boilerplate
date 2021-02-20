@@ -20,6 +20,10 @@ class Factory {
 
     return model;
   }
+
+  getDefaultValues() {
+    return this.defaultValues;
+  }
 }
 
 const buildFactory = (obj) => new Factory(obj);
