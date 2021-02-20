@@ -1,12 +1,12 @@
 const { jwt } = require('config');
-const { httpErrors } = require('common').helpers;
+const { helpers, db } = require('common');
 const { getUserById } = require('../../services/users/methods');
 const userHasPermission = require('./userHasPermission');
 
-const { Unauthorized } = httpErrors;
+const { User } = db.models;
+const { Unauthorized } = helpers.httpErrors;
 
 const authorizedCredentials = (credentials) => ({ isValid: true, credentials });
-const unauthorizedCredentials = () => ({ isValid: false });
 
 module.exports = {
   keys: jwt.secretKey,
@@ -18,21 +18,15 @@ module.exports = {
       throw Unauthorized('Invalid authorization key');
     }
 
-    const user = await getUserById({
-      id: payload.id,
-      attributes: ['first_name', 'last_name', 'roles', 'created_at'],
-      options: {
-        lean: true,
-        populate: {
-          path: 'roles',
-          select: ['id', 'name', 'actions'],
-          populate: {
-            path: 'actions',
-            select: ['id', 'path', 'method'],
-          },
-        },
+    const user = await User.findWithRolesAndActions(
+      payload.id,
+      {
+        user: ['first_name', 'last_name', 'roles', 'created_at'],
+        roles: ['id', 'name', 'actions'],
+        actions: ['id', 'path', 'method'],
       },
-    });
+      true
+    );
 
     if (!user || !(await userHasPermission(request, user))) {
       throw Unauthorized('User not authorized');
