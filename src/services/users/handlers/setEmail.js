@@ -18,4 +18,4 @@ module.exports = async ({ logger, params, payload }) => {
   }
 
   return representAs('user')(user);
-}
+};

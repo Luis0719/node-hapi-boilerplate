@@ -15,4 +15,4 @@ module.exports = async ({ logger, params, payload }) => {
   if (!result) {
     throw notFound();
   }
-}
+};

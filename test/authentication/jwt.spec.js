@@ -38,8 +38,14 @@ describe('#jwt', function () {
       actions: [public_action.id],
     });
 
-    admin_user = await factories.User.create({ username: 'test1', roles: [admin_role.id] });
-    guest_user = await factories.User.create({ username: 'test2', roles: [guest_role.id] });
+    admin_user = await factories.User.create({
+      username: 'test1',
+      roles: [admin_role.id],
+    });
+    guest_user = await factories.User.create({
+      username: 'test2',
+      roles: [guest_role.id],
+    });
   });
 
   describe('validate', function () {
