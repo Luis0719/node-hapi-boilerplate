@@ -1,4 +1,5 @@
 const P = require('bluebird');
+const mongoose = require('mongoose');
 const { db, utils } = require('../../testCommon');
 const {
   buildFilterCondition,
@@ -13,14 +14,6 @@ const { factories, initDatabase } = db;
 const { toArrayOfIds } = utils;
 
 describe('#users methods', function () {
-  before(async function () {
-    await initDatabase();
-  });
-
-  after(async function () {
-    await initDatabase();
-  });
-
   describe('#buildFilterCondition', function () {
     it('should generate OR array with firstName and lastName filters', async function () {
       const query = {
@@ -87,6 +80,8 @@ describe('#users methods', function () {
     let users;
 
     before(async function () {
+      await initDatabase();
+
       roles = await P.all([
         factories.Role.create({ name: 'admin' }),
         factories.Role.create({ name: 'engineer' }),
@@ -121,8 +116,10 @@ describe('#users methods', function () {
           createdAt: new Date('2010-01-01'),
         }),
       ]);
+    });
 
-      users.forEach((u) => console.log(u.id));
+    after(async function () {
+      await initDatabase();
     });
 
     it('should get all users', async function () {
@@ -218,6 +215,48 @@ describe('#users methods', function () {
         expect(result.length).to.be.equal(1);
         expect(result[0].id).to.be.equal(users[3].id);
       });
+    });
+  });
+
+  describe.only('#getUserById', function () {
+    let user;
+
+    before(async function () {
+      await initDatabase();
+
+      user = await factories.User.create();
+    });
+
+    after(async function () {
+      await initDatabase();
+    });
+
+    it('should get user by id with all attributes', async function () {
+      const result = await getUserById({ id: user.id });
+      expect(result.id).to.be.equal(user.id);
+
+      // Randomly select some attributes. No need to hardcode them all
+      expect(result.first_name).to.exist;
+      expect(result.roles).to.exist;
+      expect(result.createdAt).to.exist;
+    });
+
+    it('should return null for unexisting user', async function () {
+      const result = await getUserById({ id: mongoose.Types.ObjectId() });
+
+      expect(result).to.be.null;
+    });
+
+    it('should only return expected attributes', async function () {
+      const result = await getUserById({
+        id: user.id,
+        attributes: ['first_name', 'email'],
+      });
+
+      expect(result.id).to.be.equal(user.id);
+      expect(result.first_name).to.exist;
+      expect(result.email).to.exist;
+      expect(result.createdAt).to.not.exist;
     });
   });
 });
