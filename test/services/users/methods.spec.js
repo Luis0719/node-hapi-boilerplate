@@ -218,7 +218,7 @@ describe('#users methods', function () {
     });
   });
 
-  describe.only('#getUserById', function () {
+  describe('#getUserById', function () {
     let user;
 
     before(async function () {
