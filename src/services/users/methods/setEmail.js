@@ -1,7 +1,7 @@
 const getUserById = require('./getUserById');
 
 module.exports = async (id, email) => {
-  const user = await getUserById(id);
+  const user = await getUserById({ id });
 
   if (!user)
     return null;
