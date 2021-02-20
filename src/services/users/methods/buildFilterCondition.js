@@ -1,41 +1,42 @@
-const { Op } = require('common').db;
+const { Types } = require('mongoose');
 
 module.exports = (params) => {
   const where = {};
 
   if (params.name) {
-    where.firstName = {
-      [Op.like]: `%${params.name}%`,
-    };
-
-    where.lastname = {
-      [Op.like]: `%${params.name}%`,
-    };
+    where.$or = [
+      {
+        first_name: new RegExp(`${params.name}`, 'i'),
+      },
+      {
+        last_name: new RegExp(`${params.name}`, 'i'),
+      },
+    ];
   }
 
   if (params.email) {
-    where.email = params.email;
+    where.email = new RegExp(`${params.email}`, 'i');
   }
 
   if (params.phone) {
-    where.phone = params.phone;
+    where.phone = new RegExp(`${params.phone}`, 'i');
   }
 
-  if (params.role) {
-    where.role = {
-      [Op.contains]: [params.role],
+  if (params.roles) {
+    where.roles = {
+      $in: params.roles.map((role) => Types.ObjectId(role)),
     };
   }
 
   if (params.startDate) {
-    where.created_at = {
-      [Op.gte]: params.startDate,
+    where.createdAt = {
+      $gte: params.startDate,
     };
   }
 
   if (params.endDate) {
-    where.created_at = {
-      [Op.lte]: params.endDate,
+    where.createdAt = {
+      $lte: params.endDate,
     };
   }
 

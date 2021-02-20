@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
-    command: "yarn run watch"
+    command: "yarn run start:dev"
     depends_on:
       - db_dev
     entrypoint: ./docker-entrypoint.sh
@@ -30,7 +30,8 @@ services:
     tty: true
     volumes:
       - ./:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
 
 volumes:
   mongo_data:
+  node_modules:

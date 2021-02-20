@@ -3,7 +3,7 @@ const buildOptions = (params) => {
 
   if (params.sortBy) {
     options.sort = {
-      [params.sortBy]: params.sortOrder === 'DESC' ? 1 : -1,
+      [params.sortBy]: params.sortOrder === 'DESC' ? -1 : 1,
     };
   }
 

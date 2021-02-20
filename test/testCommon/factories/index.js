@@ -8,7 +8,7 @@ class Factory {
   }
 
   async create(values) {
-    const finalValues = Object.assign(this.defaultValues, values);
+    const finalValues = Object.assign({}, this.defaultValues, values);
     const model = new this.Model(finalValues);
 
     const { preSave, postSave } = this.hooks;

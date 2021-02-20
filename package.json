@@ -4,9 +4,8 @@
   "description": "Template for Hapi APIs",
   "main": "src/index.js",
   "scripts": {
-    "start:dev": "yarn watch",
+    "start:dev": "nodemon --legacy-watch src/app.js",
     "start:prod": "node src/app.js",
-    "watch": "nodemon src/app.js",
     "test": "mocha",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
     "seed": "node scripts/dev/seedDB.js",
@@ -47,6 +46,7 @@
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "chai-datetime": "^1.8.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-mocha": "^8.0.0",
