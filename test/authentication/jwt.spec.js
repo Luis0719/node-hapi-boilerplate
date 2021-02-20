@@ -1,7 +1,5 @@
-const Jwt = require('@hapi/jwt');
 const mongoose = require('mongoose');
 
-const { Unauthorized } = require('common').helpers.httpErrors;
 const { db, testServer } = require('../testCommon');
 const { validate } = require('../../src/authentication/jwt');
 
@@ -40,8 +38,8 @@ describe('#jwt', function () {
       actions: [public_action.id],
     });
 
-    admin_user = await factories.User.create({ roles: [admin_role.id] });
-    guest_user = await factories.User.create({ roles: [guest_role.id] });
+    admin_user = await factories.User.create({ username: 'test1', roles: [admin_role.id] });
+    guest_user = await factories.User.create({ username: 'test2', roles: [guest_role.id] });
   });
 
   describe('validate', function () {

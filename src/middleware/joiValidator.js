@@ -1,4 +1,4 @@
-const { BadRequest } = require('common').helpers.httpErrors;
+const { badRequest } = require('@hapi/boom');
 
 module.exports = async (request, h, err) => {
   const validationError = err.details[0];
@@ -9,10 +9,10 @@ module.exports = async (request, h, err) => {
   switch (type) {
     case 'object.base':
       if (!field)
-        throw BadRequest('Payload cannot be empty and must be an object');
+        throw badRequest('Payload cannot be empty and must be an object');
 
-      throw BadRequest(`Param ${field} must be an object`);
+      throw badRequest(`Param ${field} must be an object`);
     default:
-      throw BadRequest(message.replace(/"/g, ''));
+      throw badRequest(message.replace(/"/g, ''));
   }
 };

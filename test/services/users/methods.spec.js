@@ -31,11 +31,14 @@ describe('#users methods', function () {
 
     it('should generate roles filter', async function () {
       const query = {
-        roles: ['1111', '2222'],
+        roles: [
+          mongoose.Types.ObjectId(),
+          mongoose.Types.ObjectId(),
+        ],
       };
       const result = await buildFilterCondition(query);
       expect(result.roles).to.exist;
-      expect(result.roles).to.have.same.members(query.roles);
+      expect(result.roles.$in).to.have.same.members(query.roles);
     });
 
     it('should generate email filter', async function () {
@@ -61,8 +64,8 @@ describe('#users methods', function () {
         startDate: '01-01-1970',
       };
       const result = await buildFilterCondition(query);
-      expect(result.created_at).to.exist;
-      expect(result.created_at.$gte).to.be.equal(query.startDate);
+      expect(result.createdAt).to.exist;
+      expect(result.createdAt.$gte).to.be.equal(query.startDate);
     });
 
     it('should generate endDate filter', async function () {
@@ -70,8 +73,8 @@ describe('#users methods', function () {
         endDate: '01-01-2100',
       };
       const result = await buildFilterCondition(query);
-      expect(result.created_at).to.exist;
-      expect(result.created_at.$lte).to.be.equal(query.endDate);
+      expect(result.createdAt).to.exist;
+      expect(result.createdAt.$lte).to.be.equal(query.endDate);
     });
   });
 
@@ -149,7 +152,7 @@ describe('#users methods', function () {
 
         expect(result.length).to.be.equal(users.length);
         for (let i = 0; i < result.length - 1; i++) {
-          expect(result[i].createdAt).to.beforeTime(result[i + 1].createdAt);
+          expect(result[i].createdAt).to.beforeOrEqualTime(result[i + 1].createdAt);
         }
       });
 
@@ -161,7 +164,7 @@ describe('#users methods', function () {
 
         expect(result.length).to.be.equal(users.length);
         for (let i = 0; i < result.length - 1; i++) {
-          expect(result[i].createdAt).to.afterTime(result[i + 1].createdAt);
+          expect(result[i].createdAt).to.afterOrEqualTime(result[i + 1].createdAt);
         }
       });
     });
@@ -250,12 +253,12 @@ describe('#users methods', function () {
     it('should only return expected attributes', async function () {
       const result = await getUserById({
         id: user.id,
-        attributes: ['first_name', 'email'],
+        attributes: ['first_name', 'last_name'],
       });
 
       expect(result.id).to.be.equal(user.id);
       expect(result.first_name).to.exist;
-      expect(result.email).to.exist;
+      expect(result.last_name).to.exist;
       expect(result.createdAt).to.not.exist;
     });
   });

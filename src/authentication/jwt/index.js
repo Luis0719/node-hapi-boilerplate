@@ -1,10 +1,9 @@
 const { jwt } = require('config');
-const { helpers, db } = require('common');
-const { getUserById } = require('../../services/users/methods');
+const { db } = require('common');
+const { unauthorized } = require('@hapi/boom');
 const userHasPermission = require('./userHasPermission');
 
 const { User } = db.models;
-const { Unauthorized } = helpers.httpErrors;
 
 const authorizedCredentials = (credentials) => ({ isValid: true, credentials });
 
@@ -15,7 +14,7 @@ module.exports = {
     const payload = artifacts.decoded.payload;
 
     if (!payload.id) {
-      throw Unauthorized('Invalid authorization key');
+      throw unauthorized('Invalid authorization key');
     }
 
     const user = await User.findWithRolesAndActions(
@@ -29,7 +28,7 @@ module.exports = {
     );
 
     if (!user || !(await userHasPermission(request, user))) {
-      throw Unauthorized('User not authorized');
+      throw unauthorized('User not authorized');
     }
 
     return authorizedCredentials(user);

@@ -14,9 +14,7 @@ describe('#basic-token', function () {
 
   describe('#validate', function () {
     it('should fail if the token is not defined', async function () {
-      expect(() => basicToken({ accessTokenName: 'access_token' })).to.throw(
-        'access_token Token is not defined'
-      );
+      expect(() => basicToken({ accessTokenName: 'access_token' })).to.throw(/Internal Server Error/);
     });
 
     it('should authorize when token matches', async function () {

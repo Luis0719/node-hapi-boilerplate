@@ -1,15 +1,11 @@
 const { apiService } = require('config');
-const { helpers } = require('common');
-
-const { InternalServer } = helpers.httpErrors;
+const { internal } = require('@hapi/boom');
 
 module.exports = (tokenConfig) => {
-  if (!tokenConfig.accessToken)
-    throw InternalServer(
-      `${tokenConfig.accessTokenName} Token is not defined`,
-      'Basic',
-      true
-    );
+  if (!tokenConfig.accessToken) {
+    console.log(`${tokenConfig.accessTokenName} Token is not defined`); // eslint-disable-line no-console
+    throw internal();
+  }
 
   return {
     accessTokenName: tokenConfig.accessTokenName,
