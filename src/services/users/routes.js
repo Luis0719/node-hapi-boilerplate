@@ -67,11 +67,47 @@ module.exports = () => [
           first_name: Joi.string().max(60).required(),
           last_name: Joi.string().max(60).required(),
           image: Joi.string(),
-          email: Joi.string()
-            .max(50)
-            .email({ tlds: { allow: false } }),
           phone: Joi.string(),
           roles: Joi.array().items(Joi.string()),
+        }),
+      },
+    },
+  },
+  {
+    method: 'PATCH',
+    path: '/users/set-email/{id}',
+    handler: (request) => handlers.setEmail(request),
+    config: {
+      tags: ['api', 'users'],
+      description: 'Update user email by id',
+      auth: 'jwt',
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().required(),
+        }),
+        payload: Joi.object({
+          email: Joi.string()
+            .max(50)
+            .email({ tlds: { allow: false } })
+            .required(),
+        }),
+      },
+    },
+  },
+  {
+    method: 'PATCH',
+    path: '/users/reset-password/{id}',
+    handler: (request) => handlers.resetPassword(request),
+    config: {
+      tags: ['api', 'users'],
+      description: 'Update user password by id',
+      auth: 'jwt',
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().required(),
+        }),
+        payload: Joi.object({
+          password: Joi.string().required(),
         }),
       },
     },
