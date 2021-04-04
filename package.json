@@ -8,7 +8,7 @@
     "start:prod": "node src/app.js",
     "test": "mocha",
     "make-pretty": "prettier --write '{src,test}/**/*.js'",
-    "seed": "node scripts/dev/seedDB.js",
+    "seed": "node scripts/dev/seedDB/index.js",
     "unseed": ""
   },
   "repository": {
