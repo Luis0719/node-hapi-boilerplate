@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { jwtBaseStrategy, authorizedResponse, unauthorizedResponse} = require('./base');
 const { getUserWithRoles } = require('./getUser');
 
