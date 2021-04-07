@@ -51,26 +51,36 @@ UserSchema.virtual('full_name').get(function () {
   return `${this.first_name} ${this.last_name}`;
 });
 
+UserSchema.statics.findWithRoles = async function (
+  userId,
+  attributes = {},
+  lean = false
+) {
+  return this.findById(userId, attributes.user, {
+    lean,
+    populate: {
+      path: 'roles',
+      select: attributes.roles,
+    },
+  });
+};
+
 UserSchema.statics.findWithRolesAndActions = async function (
   userId,
   attributes = {},
   lean = false
 ) {
-  return this.findById(
-    userId,
-    attributes.user, //['first_name', 'last_name', 'roles', 'created_at']
-    {
-      lean,
+  return this.findById(userId, attributes.user, {
+    lean,
+    populate: {
+      path: 'roles',
+      select: attributes.roles,
       populate: {
-        path: 'roles',
-        select: attributes.roles, //['id', 'name', 'actions'],
-        populate: {
-          path: 'actions',
-          select: attributes.actions, // ['id', 'path', 'method'],
-        },
+        path: 'actions',
+        select: attributes.actions,
       },
-    }
-  );
+    },
+  });
 };
 
 UserSchema.methods.setPassword = async function (password) {
