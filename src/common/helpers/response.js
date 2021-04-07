@@ -39,8 +39,8 @@ const representAsPaginated = (rep, options) => {
   };
 };
 
-const noContent = async () => {
-  return undefined;
+const noContent = async (res) => {
+  return res.response().code(204);
 };
 
 module.exports = {
