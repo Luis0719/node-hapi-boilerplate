@@ -16,4 +16,7 @@ const hasPermission = async (request, payload) => {
     : unauthorizedResponse();
 }
 
-module.exports = jwtBaseStrategy(hasPermission);
+module.exports = {
+  hasPermission,
+  validate: jwtBaseStrategy('anyAuthenticated', hasPermission),
+};

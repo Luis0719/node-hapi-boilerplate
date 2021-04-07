@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { db, testServer } = require('../testCommon');
-const { validate } = require('../../src/authentication/jwt');
+const { validate } = require('../../src/authentication/jwt/base');
 
 const { initDatabase, factories } = db;
 

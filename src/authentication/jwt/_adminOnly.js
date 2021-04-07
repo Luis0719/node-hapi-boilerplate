@@ -18,9 +18,13 @@ const hasPermission = async (request, payload) => {
   if (!user)
     return unauthorizedResponse();
 
+  const roles = user.roles;
   return hasAdminRole(roles)
     ? authorizedResponse(user)
     : unauthorizedResponse();
 }
 
-module.exports = jwtBaseStrategy(hasPermission);
+module.exports = {
+  hasPermission,
+  validate: jwtBaseStrategy('adminOnly', hasPermission),
+};
