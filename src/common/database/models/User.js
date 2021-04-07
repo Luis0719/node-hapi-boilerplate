@@ -51,6 +51,24 @@ UserSchema.virtual('full_name').get(function () {
   return `${this.first_name} ${this.last_name}`;
 });
 
+UserSchema.statics.findWithRoles = async function (
+  userId,
+  attributes = {},
+  lean = false
+) {
+  return this.findById(
+    userId,
+    attributes.user,
+    {
+      lean,
+      populate: {
+        path: 'roles',
+        select: attributes.roles,
+      },
+    }
+  );
+};
+
 UserSchema.statics.findWithRolesAndActions = async function (
   userId,
   attributes = {},
@@ -58,15 +76,15 @@ UserSchema.statics.findWithRolesAndActions = async function (
 ) {
   return this.findById(
     userId,
-    attributes.user, //['first_name', 'last_name', 'roles', 'created_at']
+    attributes.user,
     {
       lean,
       populate: {
         path: 'roles',
-        select: attributes.roles, //['id', 'name', 'actions'],
+        select: attributes.roles,
         populate: {
           path: 'actions',
-          select: attributes.actions, // ['id', 'path', 'method'],
+          select: attributes.actions,
         },
       },
     }
