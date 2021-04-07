@@ -58,6 +58,13 @@ const buildUnathorizedHeaders = () => ({
   Authorization: 'Bearer InvalidToken',
 });
 
+/*
+  Create headers that will always fail as unathorized jwt
+ */
+const buildUnathorizedJwtHeaders = () => ({
+  Authorization: `Bearer ${buildJwtToken(0)}`,
+});
+
 const buildServerInjecter = (server) => (route, headers, payload = {}) => {
   return server.inject({
     method: route.method,
@@ -75,6 +82,7 @@ module.exports = {
   buildJwtToken,
   buildRequestBody,
   buildUnathorizedHeaders,
+  buildUnathorizedJwtHeaders,
   buildServerInjecter,
   toArrayOfIds,
 };
