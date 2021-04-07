@@ -76,6 +76,8 @@ const buildServerInjecter = (server) => (route, headers, payload = {}) => {
 
 const toArrayOfIds = (models) => models.map((model) => model.id);
 
+const getUrlWithPrefix = (url) => `/api/${url}`;
+
 module.exports = {
   buildAuthorizedHeaders,
   buildAuthorizedJwtHeaders,
@@ -84,5 +86,6 @@ module.exports = {
   buildUnathorizedHeaders,
   buildUnathorizedJwtHeaders,
   buildServerInjecter,
+  getUrlWithPrefix,
   toArrayOfIds,
 };

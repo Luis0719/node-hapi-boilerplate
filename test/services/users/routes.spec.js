@@ -20,8 +20,6 @@ describe.only('#users routes', function () {
     const admin = await prefabs.User.createAdmin();
     const guestNoActions = await prefabs.User.createGuest();
     const guest = await prefabs.User.createGuestWithActions([
-      '/users',
-      '/users/{id}',
       ['/users', 'post'],
       ['/users/{id}', 'put'],
       ['/users/set-email/{id}', 'patch'],
@@ -37,15 +35,49 @@ describe.only('#users routes', function () {
   });
 
   describe('GET /users', async function () {
+    let route;
 
-  })
+    before(function () {
+      route = {
+        url: utils.getUrlWithPrefix('users'),
+        method: 'GET',
+      }
+    });
+
+    it('should return 401 if not authorized', async function() {
+      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
+
+      const res = await serverInject(route, unauthorizedHeaders);
+      expect(res.statusCode).to.be.equal(401);
+
+      deleteUserStub.restore();
+    });
+
+    it('should return 401 if guest is not authorized', async function() {
+      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
+
+      const res = await serverInject(route, authorizedGuestNoActionsHeaders);
+      expect(res.statusCode).to.be.equal(401);
+
+      deleteUserStub.restore();
+    });
+
+    it('should return 200 if successful', async function() {
+      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
+
+      const res = await serverInject(route, authorizedAdminHeaders);
+      expect(res.statusCode).to.be.equal(200);
+
+      deleteUserStub.restore();
+    });
+  });
 
   describe('DELETE /users', async function () {
     let route;
 
     before(function () {
       route = (userId) => ({
-        url: `/api/users/${userId}`,
+        url: utils.getUrlWithPrefix(`users/${userId}`),
         method: 'DELETE',
       });
     });
