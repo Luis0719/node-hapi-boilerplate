@@ -9,7 +9,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Get list of all users',
-      auth: 'jwt',
+      auth: 'adminOnly',
     },
   },
   {
@@ -19,7 +19,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Get user by id',
-      auth: 'jwt',
+      auth: 'adminOnly',
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
@@ -34,7 +34,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Store new user',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         payload: Joi.object({
           first_name: Joi.string().max(60).required(),
@@ -58,7 +58,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Update user by id',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
@@ -80,7 +80,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Update user email by id',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
@@ -101,7 +101,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Update user password by id',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
@@ -119,7 +119,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Delete user by id',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
