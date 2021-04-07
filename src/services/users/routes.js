@@ -9,17 +9,17 @@ module.exports = () => [
     config: {
       tags: ['api', 'users'],
       description: 'Get list of all users',
-      auth: 'adminOnly',
+      auth: 'userByRole',
     },
   },
   {
     method: 'GET',
-    path: '/users/{id}',
+    path: '/user/{id}',
     handler: (request) => handlers.getUser(request),
     config: {
       tags: ['api', 'users'],
       description: 'Get user by id',
-      auth: 'adminOnly',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
@@ -29,7 +29,7 @@ module.exports = () => [
   },
   {
     method: 'POST',
-    path: '/users',
+    path: '/user',
     handler: (request) => handlers.storeUser(request),
     config: {
       tags: ['api', 'users'],
@@ -53,7 +53,7 @@ module.exports = () => [
   },
   {
     method: 'PUT',
-    path: '/users/{id}',
+    path: '/user/{id}',
     handler: handlers.updateUser,
     config: {
       tags: ['api', 'users'],
@@ -61,7 +61,7 @@ module.exports = () => [
       auth: 'userByRole',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required(),
+          id: Joi.string().required(),
         }),
         payload: Joi.object({
           first_name: Joi.string().max(60).required(),
@@ -75,7 +75,7 @@ module.exports = () => [
   },
   {
     method: 'PATCH',
-    path: '/users/set-email/{id}',
+    path: '/user/set-email/{id}',
     handler: handlers.setEmail,
     config: {
       tags: ['api', 'users'],
@@ -96,7 +96,7 @@ module.exports = () => [
   },
   {
     method: 'PATCH',
-    path: '/users/reset-password/{id}',
+    path: '/user/reset-password/{id}',
     handler: handlers.resetPassword,
     config: {
       tags: ['api', 'users'],
@@ -114,7 +114,7 @@ module.exports = () => [
   },
   {
     method: 'DELETE',
-    path: '/users/{id}',
+    path: '/user/{id}',
     handler: handlers.deleteUser,
     config: {
       tags: ['api', 'users'],
@@ -122,7 +122,7 @@ module.exports = () => [
       auth: 'userByRole',
       validate: {
         params: Joi.object({
-          id: Joi.number().integer().required(),
+          id: Joi.string().required(),
         }),
       },
     },

@@ -1,12 +1,12 @@
 const { helpers } = require('common');
 const { internal } = require('@hapi/boom');
-const { getUserById } = require('../methods');
+const methods = require('../methods');
 
 const { to } = helpers.functionalHelpers;
 const { representAs } = helpers.response;
 
 module.exports = async ({ logger, params }) => {
-  const [error, user] = await to(getUserById({ id: params.id }));
+  const [error, user] = await to(methods.getUserById({ id: params.id }));
 
   if (error) {
     logger.error(error);
