@@ -10,7 +10,16 @@ const getTestServer = async () => {
   return testServer;
 };
 
+const stopServer = async () => {
+  if (!testServer) return;
+
+  await testServer.stop();
+  testServer = null;
+  return;
+}
+
 module.exports = {
   createTestServer,
   getTestServer,
+  stopServer,
 };
