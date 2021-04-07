@@ -1,12 +1,12 @@
 const { helpers } = require('common');
 const { internal } = require('@hapi/boom');
-const { deleteUser } = require('../methods');
+const methods = require('../methods');
 
 const { to } = helpers.functionalHelpers;
-const { representAs } = helpers.response;
+const { noContent } = helpers.response;
 
-module.exports = async ({ logger, params }) => {
-  const [error, user] = await to(deleteUser(params.id));
+module.exports = async ({ logger, params }, res) => {
+  const [error, user] = await to(methods.deleteUser(params.id));
 
   if (error) {
     logger.error(error);
@@ -14,8 +14,8 @@ module.exports = async ({ logger, params }) => {
   }
 
   if (!user) {
-    throw NotFound();
+    logger.warn(`Could not delete user ${params.id}`);
   }
 
-  return representAs('user')(user);
+  return noContent(res);
 };

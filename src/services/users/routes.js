@@ -5,7 +5,7 @@ module.exports = () => [
   {
     method: 'GET',
     path: '/users',
-    handler: (request) => handlers.getUsers(request),
+    handler: handlers.getUsers,
     config: {
       tags: ['api', 'users'],
       description: 'Get list of all users',
@@ -54,7 +54,7 @@ module.exports = () => [
   {
     method: 'PUT',
     path: '/users/{id}',
-    handler: (request) => handlers.updateUser(request),
+    handler: handlers.updateUser,
     config: {
       tags: ['api', 'users'],
       description: 'Update user by id',
@@ -76,7 +76,7 @@ module.exports = () => [
   {
     method: 'PATCH',
     path: '/users/set-email/{id}',
-    handler: (request) => handlers.setEmail(request),
+    handler: handlers.setEmail,
     config: {
       tags: ['api', 'users'],
       description: 'Update user email by id',
@@ -97,7 +97,7 @@ module.exports = () => [
   {
     method: 'PATCH',
     path: '/users/reset-password/{id}',
-    handler: (request) => handlers.resetPassword(request),
+    handler: handlers.resetPassword,
     config: {
       tags: ['api', 'users'],
       description: 'Update user password by id',
@@ -115,7 +115,7 @@ module.exports = () => [
   {
     method: 'DELETE',
     path: '/users/{id}',
-    handler: (request) => handlers.deleteUser(request),
+    handler: handlers.deleteUser,
     config: {
       tags: ['api', 'users'],
       description: 'Delete user by id',
