@@ -1,9 +1,9 @@
 const config = require('config');
 
 const basicToken = require('./basic-token');
-const jwtAnyAuthenticated = require('./jwt/_anyAuthenticated');
-const jwtAdminOnly = require('./jwt/_adminOnly');
-const jwtUserByRole = require('./jwt/_userByRole');
+const jwtAnyAuthenticated = require('./jwt/_anyAuthenticated').validate;
+const jwtAdminOnly = require('./jwt/_adminOnly').validate;
+const jwtUserByRole = require('./jwt/_userByRole').validate;
 
 module.exports = async (server) => {
   await server.register(require('hapi-auth-bearer-token'));
