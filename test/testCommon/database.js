@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const models = require('common').db.models;
+const factories = require('./factories');
+const prefabs = require('./prefabs')(factories);
 
 const initDatabase = async () => {
   for (const collection in mongoose.connection.collections) {
@@ -7,8 +9,10 @@ const initDatabase = async () => {
   }
 };
 
+
 module.exports = {
-  factories: require('./factories'),
+  factories,
   initDatabase,
   models,
+  prefabs,
 };
