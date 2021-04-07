@@ -16,7 +16,7 @@ const stopServer = async () => {
   await testServer.stop();
   testServer = null;
   return;
-}
+};
 
 module.exports = {
   createTestServer,
