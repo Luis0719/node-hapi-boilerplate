@@ -9,7 +9,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'roles'],
       description: 'Get list of all roles',
-      // auth: 'jwt',
+      auth: 'userByRole',
     },
   },
   {
@@ -19,7 +19,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'roles'],
       description: 'Get role by ID',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
@@ -34,7 +34,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'roles'],
       description: 'Create a new role',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         payload: Joi.object({
           name: Joi.string().min(3).max(30).required(),
@@ -50,7 +50,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'roles'],
       description: 'Update role',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
@@ -74,7 +74,7 @@ module.exports = () => [
     config: {
       tags: ['api', 'roles'],
       description: 'Delete role',
-      auth: 'jwt',
+      auth: 'userByRole',
       validate: {
         params: Joi.object({
           id: Joi.number().integer().required(),
