@@ -1,3 +1,4 @@
+const faker = require('faker');
 const {
   Role,
 } = require('common').db.models;
@@ -11,35 +12,29 @@ module.exports = (factories) => ({
     }
 
     return factories.User.create({
-      username: 'admin',
+      username: faker.internet.userName(),
       roles: [admin_role.id],
     });
   },
   async createGuest () {
-    let guest_role = await Role.findOne({ name: 'guest' });
-
-    if (!guest_role) {
-      guest_role = await factories.Role.create({ name: 'guest' });
-    }
+    const roleName = `guest${faker.random.number(1000)}`;
+    const role = await factories.Role.create({ name: roleName });
 
     return factories.User.create({
-      username: 'guest',
-      roles: [guest_role.id],
+      username: faker.internet.userName(),
+      roles: [role.id],
     });
   },
   async createGuestWithActions (actionsPaths) {
-    let guest_role = await Role.findOne({ name: 'guest' });
+    const actionsPromises = actionsPaths.map(path => factories.Action.create({ path }));
+    const actions = await Promise.all(actionsPromises);
 
-    if (!guest_role) {
-      const actionsPromises = actionsPaths.map(path => factories.Action.create({ path }));
-      let actions = await Promise.all(actionsPromises);
-
-      guest_role = await factories.Role.create({ name: 'guest', actions: actions.map(action => action._id) });
-    }
+    const roleName = `guest${faker.random.number(1000)}`;
+    const role = await factories.Role.create({ name: roleName, actions: actions.map(action => action._id) });
 
     return factories.User.create({
-      username: 'guest',
-      roles: [guest_role.id],
+      username: faker.internet.userName(),
+      roles: [role.id],
     });
   }
 });
