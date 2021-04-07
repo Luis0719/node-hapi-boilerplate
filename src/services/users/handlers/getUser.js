@@ -1,5 +1,5 @@
 const { helpers } = require('common');
-const { internal } = require('@hapi/boom');
+const { internal, notFound } = require('@hapi/boom');
 const methods = require('../methods');
 
 const { to } = helpers.functionalHelpers;
@@ -14,7 +14,7 @@ module.exports = async ({ logger, params }) => {
   }
 
   if (!user) {
-    throw NotFound();
+    throw notFound();
   }
 
   return representAs('user')(user);

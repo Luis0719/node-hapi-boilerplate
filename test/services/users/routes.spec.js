@@ -6,7 +6,7 @@ const { db, utils, testServer } = require('../../testCommon');
 
 const { initDatabase, prefabs } = db;
 
-describe.only('#users routes', function () {
+describe('#users routes', function () {
   let serverInject;
   let authorizedAdminHeaders;
   let authorizedGuestHeaders;
@@ -20,11 +20,13 @@ describe.only('#users routes', function () {
     const admin = await prefabs.User.createAdmin();
     const guestNoActions = await prefabs.User.createGuest();
     const guest = await prefabs.User.createGuestWithActions([
-      ['/users', 'post'],
-      ['/users/{id}', 'put'],
-      ['/users/set-email/{id}', 'patch'],
-      ['/users/reset-password/{id}', 'patch'],
-      ['/users/{id}', 'delete'],
+      '/users',
+      '/user/{id}',
+      ['/user', 'post'],
+      ['/user/{id}', 'put'],
+      ['/user/set-email/{id}', 'patch'],
+      ['/user/reset-password/{id}', 'patch'],
+      ['/user/{id}', 'delete'],
     ]);
 
     serverInject = utils.buildServerInjecter(await testServer.getTestServer());
@@ -57,19 +59,58 @@ describe.only('#users routes', function () {
     it('should return 200 if successful', async function() {
       const getUsersStub = sinon.stub(methods, 'getUsers').callsFake(async () => ([]));
 
-      const res = await serverInject(route, authorizedAdminHeaders);
+      const res = await serverInject(route, authorizedGuestHeaders);
       expect(res.statusCode).to.be.equal(200);
 
       getUsersStub.restore();
     });
   });
 
-  describe('DELETE /users', async function () {
+  describe('GET /user/{id}', async function () {
     let route;
 
     before(function () {
       route = (userId) => ({
-        url: utils.getUrlWithPrefix(`users/${userId}`),
+        url: utils.getUrlWithPrefix(`user/${userId}`),
+        method: 'GET',
+      });
+    });
+
+    it('should return 401 if not authorized', async function() {
+      const res = await serverInject(route(1), unauthorizedHeaders);
+      expect(res.statusCode).to.be.equal(401);
+    });
+
+    it('should return 401 if guest is not authorized', async function() {
+      const res = await serverInject(route(1), authorizedGuestNoActionsHeaders);
+      expect(res.statusCode).to.be.equal(401);
+    });
+
+    it('should return 200 if successful', async function() {
+      const getUserStub = sinon.stub(methods, 'getUserById').callsFake(async () => ({}));
+
+      const res = await serverInject(route(1), authorizedAdminHeaders);
+      expect(res.statusCode).to.be.equal(200);
+
+      getUserStub.restore();
+    });
+
+    it('should return 404 if user is not found', async function() {
+      const getUserStub = sinon.stub(methods, 'getUserById').callsFake(async () => null);
+
+      const res = await serverInject(route(1), authorizedAdminHeaders);
+      expect(res.statusCode).to.be.equal(404);
+
+      getUserStub.restore();
+    });
+  });
+
+  describe('DELETE /user', async function () {
+    let route;
+
+    before(function () {
+      route = (userId) => ({
+        url: utils.getUrlWithPrefix(`user/${userId}`),
         method: 'DELETE',
       });
     });
@@ -117,16 +158,6 @@ describe.only('#users routes', function () {
       expect(res.statusCode).to.be.equal(204);
 
       deleteUserStub.restore();
-    });
-
-    it('should return 400 if user id does not exists', async function() {
-      const res = await serverInject(route(), authorizedGuestHeaders);
-      expect(res.statusCode).to.be.equal(400);
-    });
-
-    it('should return 400 if user id is not valid', async function() {
-      const res = await serverInject(route('invalidId'), authorizedGuestHeaders);
-      expect(res.statusCode).to.be.equal(400);
     });
   });
 });

@@ -15,7 +15,7 @@ module.exports = () => [
   {
     method: 'GET',
     path: '/user/{id}',
-    handler: (request) => handlers.getUser(request),
+    handler: handlers.getUser,
     config: {
       tags: ['api', 'users'],
       description: 'Get user by id',
@@ -30,7 +30,7 @@ module.exports = () => [
   {
     method: 'POST',
     path: '/user',
-    handler: (request) => handlers.storeUser(request),
+    handler: handlers.storeUser,
     config: {
       tags: ['api', 'users'],
       description: 'Store new user',
