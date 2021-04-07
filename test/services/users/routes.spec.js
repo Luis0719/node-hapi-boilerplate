@@ -45,30 +45,22 @@ describe.only('#users routes', function () {
     });
 
     it('should return 401 if not authorized', async function() {
-      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
-
       const res = await serverInject(route, unauthorizedHeaders);
       expect(res.statusCode).to.be.equal(401);
-
-      deleteUserStub.restore();
     });
 
     it('should return 401 if guest is not authorized', async function() {
-      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
-
       const res = await serverInject(route, authorizedGuestNoActionsHeaders);
       expect(res.statusCode).to.be.equal(401);
-
-      deleteUserStub.restore();
     });
 
     it('should return 200 if successful', async function() {
-      const deleteUserStub = sinon.stub(methods, 'deleteUser').callsFake(async () => ({}));
+      const getUsersStub = sinon.stub(methods, 'getUsers').callsFake(async () => ([]));
 
       const res = await serverInject(route, authorizedAdminHeaders);
       expect(res.statusCode).to.be.equal(200);
 
-      deleteUserStub.restore();
+      getUsersStub.restore();
     });
   });
 
