@@ -1,7 +1,7 @@
 const config = require('config');
 
 const basicToken = require('./basic-token');
-const jwtAnyOne = require('./jwt/_anyOne');
+const jwtAnyAuthenticated = require('./jwt/_anyAuthenticated');
 const jwtAdminOnly = require('./jwt/_adminOnly');
 const jwtUserByRole = require('./jwt/_userByRole');
 
@@ -14,7 +14,7 @@ module.exports = async (server) => {
   );
 
   await server.register(require('@hapi/jwt'));
-  server.auth.strategy('anyAuthenticated', 'jwt', jwtAnyOne);
+  server.auth.strategy('anyAuthenticated', 'jwt', jwtAnyAuthenticated);
   server.auth.strategy('adminOnly', 'jwt', jwtAdminOnly);
   server.auth.strategy('userByRole', 'jwt', jwtUserByRole);
 };
