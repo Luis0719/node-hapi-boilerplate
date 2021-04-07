@@ -56,17 +56,13 @@ UserSchema.statics.findWithRoles = async function (
   attributes = {},
   lean = false
 ) {
-  return this.findById(
-    userId,
-    attributes.user,
-    {
-      lean,
-      populate: {
-        path: 'roles',
-        select: attributes.roles,
-      },
-    }
-  );
+  return this.findById(userId, attributes.user, {
+    lean,
+    populate: {
+      path: 'roles',
+      select: attributes.roles,
+    },
+  });
 };
 
 UserSchema.statics.findWithRolesAndActions = async function (
@@ -74,21 +70,17 @@ UserSchema.statics.findWithRolesAndActions = async function (
   attributes = {},
   lean = false
 ) {
-  return this.findById(
-    userId,
-    attributes.user,
-    {
-      lean,
+  return this.findById(userId, attributes.user, {
+    lean,
+    populate: {
+      path: 'roles',
+      select: attributes.roles,
       populate: {
-        path: 'roles',
-        select: attributes.roles,
-        populate: {
-          path: 'actions',
-          select: attributes.actions,
-        },
+        path: 'actions',
+        select: attributes.actions,
       },
-    }
-  );
+    },
+  });
 };
 
 UserSchema.methods.setPassword = async function (password) {

@@ -1,13 +1,9 @@
 const { User } = require('common').db.models;
 
 const getUser = (userId) =>
-  User.findById(
-    userId,
-    ['first_name', 'last_name', 'roles', 'created_at'],
-    {
-      lean: true
-    },
-  );
+  User.findById(userId, ['first_name', 'last_name', 'roles', 'created_at'], {
+    lean: true,
+  });
 
 const getUserWithRoles = (userId) =>
   User.findWithRoles(
@@ -34,4 +30,4 @@ module.exports = {
   getUser,
   getUserWithRoles,
   getUserWithRolesAndActions,
-}
+};

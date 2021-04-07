@@ -1,4 +1,8 @@
-const { jwtBaseStrategy, authorizedResponse, unauthorizedResponse} = require('./base');
+const {
+  jwtBaseStrategy,
+  authorizedResponse,
+  unauthorizedResponse,
+} = require('./base');
 const { getUser } = require('./getUser');
 
 /*
@@ -11,10 +15,8 @@ const { getUser } = require('./getUser');
 const hasPermission = async (request, payload) => {
   const user = await getUser(payload.id);
 
-  return user
-    ? authorizedResponse(user)
-    : unauthorizedResponse();
-}
+  return user ? authorizedResponse(user) : unauthorizedResponse();
+};
 
 module.exports = {
   hasPermission,

@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 const { db, testServer } = require('../testCommon');
 
 const { jwtBaseStrategy } = require('../../src/authentication/jwt/base');
-const anyAuthenticated = require('../../src/authentication/jwt/_anyAuthenticated').hasPermission;
-const adminOnly = require('../../src/authentication/jwt/_adminOnly').hasPermission;
-const userByRole = require('../../src/authentication/jwt/_userByRole').hasPermission;
+const anyAuthenticated = require('../../src/authentication/jwt/_anyAuthenticated')
+  .hasPermission;
+const adminOnly = require('../../src/authentication/jwt/_adminOnly')
+  .hasPermission;
+const userByRole = require('../../src/authentication/jwt/_userByRole')
+  .hasPermission;
 
 const { initDatabase, factories } = db;
 
@@ -27,7 +30,7 @@ const buildRequest = (path, method = 'get') => ({
   },
 });
 
-const userIdAsString = user => user._id.toString();
+const userIdAsString = (user) => user._id.toString();
 
 describe('#jwt', function () {
   let server;
@@ -61,15 +64,16 @@ describe('#jwt', function () {
     let hasPermissionPositive;
     let hasPermissionNegative;
 
-    before(function() {
-      hasPermissionPositive = (user) => () => Promise.resolve({ authorized: true, user });
+    before(function () {
+      hasPermissionPositive = (user) => () =>
+        Promise.resolve({ authorized: true, user });
       hasPermissionNegative = () => Promise.resolve({ authorized: false });
     });
 
-    it('should fail is hasPermission is not a function', function() {
+    it('should fail is hasPermission is not a function', function () {
       expect(() => jwtBaseStrategy('test', {})).to.throw(
         /Error for JWT test\. 'hasPermission' must be a function/
-      )
+      );
     });
 
     it('should fail if no id is provided', async function () {
@@ -91,7 +95,10 @@ describe('#jwt', function () {
     });
 
     it('should pass if user is authorized', async function () {
-      const validate = jwtBaseStrategy('test', hasPermissionPositive(guest_user)).validate;
+      const validate = jwtBaseStrategy(
+        'test',
+        hasPermissionPositive(guest_user)
+      ).validate;
       const payload = buildPayload(mongoose.Types.ObjectId());
 
       const result = await validate(payload, {});
@@ -141,7 +148,7 @@ describe('#jwt', function () {
     });
   });
 
-  describe('#jwtUserByRole', function() {
+  describe('#jwtUserByRole', function () {
     it('should not authorize if user does not exists', async function () {
       const data = buildHasPermissionPayload(mongoose.Types.ObjectId());
 

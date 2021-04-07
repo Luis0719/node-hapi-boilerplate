@@ -7,7 +7,7 @@ const unauthorizedResponse = () => ({ authorized: false });
 const authorizedResponse = (user) => ({
   authorized: true,
   user,
-})
+});
 // ---------------------------------------
 
 const validCredentials = (credentials) => ({ isValid: true, credentials });
@@ -24,7 +24,9 @@ const jwtBaseStrategy = (name, hasPermission) => {
   }
 
   if (!_.isFunction(hasPermission)) {
-    throw new Error(`Error for JWT ${name}. 'hasPermission' must be a function. Instead got ${typeof hasPermission}`);
+    throw new Error(
+      `Error for JWT ${name}. 'hasPermission' must be a function. Instead got ${typeof hasPermission}`
+    );
   }
 
   return {
@@ -45,11 +47,10 @@ const jwtBaseStrategy = (name, hasPermission) => {
       return validCredentials(hasPermissionResult.user);
     },
   };
-}
-
+};
 
 module.exports = {
   authorizedResponse,
   unauthorizedResponse,
   jwtBaseStrategy,
-}
+};

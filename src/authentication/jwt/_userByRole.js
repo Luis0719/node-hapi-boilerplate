@@ -1,10 +1,14 @@
 const _ = require('lodash');
-const { jwtBaseStrategy, authorizedResponse, unauthorizedResponse} = require('./base');
+const {
+  jwtBaseStrategy,
+  authorizedResponse,
+  unauthorizedResponse,
+} = require('./base');
 const { getUserWithRolesAndActions } = require('./getUser');
 
 const hasAdminRole = (roles) => {
   return !!_.find(roles, { name: 'admin' });
-}
+};
 
 const roleHasPermission = (roles, route) => {
   const { path, method } = route;
@@ -14,7 +18,7 @@ const roleHasPermission = (roles, route) => {
   }
 
   return false;
-}
+};
 /*
   This strategy focuses on whether a user's role has the permission to
   access a specific resource. The 'resource' is the combination of the
@@ -28,8 +32,7 @@ const roleHasPermission = (roles, route) => {
 const hasPermission = async (request, payload) => {
   const user = await getUserWithRolesAndActions(payload.id);
 
-  if (!user)
-    return unauthorizedResponse();
+  if (!user) return unauthorizedResponse();
 
   const roles = user.roles;
   if (hasAdminRole(roles)) {
@@ -39,9 +42,9 @@ const hasPermission = async (request, payload) => {
   return roleHasPermission(roles, request.route)
     ? authorizedResponse(user)
     : unauthorizedResponse();
-}
+};
 
 module.exports = {
   hasPermission,
   validate: jwtBaseStrategy('userByRole', hasPermission),
-}
+};
