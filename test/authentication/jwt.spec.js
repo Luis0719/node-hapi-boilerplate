@@ -9,7 +9,7 @@ const adminOnly = require('../../src/authentication/jwt/_adminOnly')
 const userByRole = require('../../src/authentication/jwt/_userByRole')
   .hasPermission;
 
-const { initDatabase, factories } = db;
+const { initDatabase, prefabs } = db;
 
 const buildPayload = (userId) => ({
   decoded: {
@@ -41,23 +41,8 @@ describe('#jwt', function () {
     server = testServer.getTestServer();
     await initDatabase();
 
-    const public_action = await factories.Action.create({ path: '/public' });
-    await factories.Action.create({ path: '/private' });
-
-    const admin_role = await factories.Role.create({ name: 'admin' });
-    const guest_role = await factories.Role.create({
-      name: 'guest',
-      actions: [public_action.id],
-    });
-
-    admin_user = await factories.User.create({
-      username: 'test1',
-      roles: [admin_role.id],
-    });
-    guest_user = await factories.User.create({
-      username: 'test2',
-      roles: [guest_role.id],
-    });
+    admin_user = await prefabs.User.createAdmin();
+    guest_user = await prefabs.User.createGuestWithActions(['/public'])
   });
 
   describe('#jwtBase', function () {
